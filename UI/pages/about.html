@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="properties for rent,PropertyPro-lite">
+        <meta name="author" content="BAHATI Robben">
+    <title>PropertyPro-lite</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+</head>
+    <body>
+        <nav>
+            <div class="logo">
+                <h4>PropertyPro-</h4>
+            </div>
+            <ul class="nav-links">
+               <li><a href="../../index.html">Home</a></li>
+               <li><a href="posts.html">Properties</a></li>
+               <li><a href="login.html">Login</a></li>
+               <li><a href="signup.html">Contact Us</a></li>
+               <li><a href="about.html">About Us</a></li>
+
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+
+        </nav>
+        <div class="separator"></div>
+        <script src="../scripts/index.js">
+        </script>
+
+
+        <div class = "box about">
+            <h1>PropertyPro-lite Designed with Love by Bahati Robben as a Project for Andela fellowship</h1>
+            <div class="box home-explain">
+                    <p>
+                        <span>Buyers:<span>
+                            <br>
+                            We introduce you to various agents that can help you find A New
+                            Home, In a place you desire. Prices are almost crawling since there
+                            are no middle men between you and a property Owner.
+                            We have a fast and reliable customer services that won't delay your services
+        
+                    </p>
+                    <p>
+                        <span>Sellers:</span>
+                        <br>
+                        At PropertyPro-lite; you can chose to be a customer, an agent, or both. For agents' side;
+                        We have developed various tools that will help you reach the customers sitting at your home desk.
+                        All you need is a computer or a phone to create and maintain your account, and ofcourse 
+                        the properties that you offer.
+                    </p>
+        
+                </div>
+            <hr>
+            
+            <table>
+                    <h2>For More Details, Find Me At:</h2>
+                <tbody>
+                  <tr><td><img src="../images/facebook.png" class="icon contact"></td><td>Bahati Robben</td></tr>
+                  <tr><td><img src="../images/whatsapp.png" class="icon contact"></td><td>+250 780 475 911</td></tr>
+                  <tr><td><img src="../images/gmail.png" class="icon contact"></td><td>bahatiroben@gmail.com</td></tr>
+                  <tr><td><img src="../images/linkedin.png" class="icon contact"></td><td>Bahati Robben</td></tr>
+                  <tr><td><img src="../images/instagram.png" class="icon contact"></td><td>Lucky_robben</td></tr>
+                </tbody>
+          </table>
+
+
+
+
+        </div>
+    <div class="map">
+        <div id="location"></div>
+
+       
+
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPNdvlLuUOv_1D7BYueHC02dTs2J5qjTo&callback=ourLocation">
+        </script>
+        <script>
+                function ourLocation() {
+                const details = {
+                    center: new google.maps.LatLng(-1.964660,30.058325),
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.HYBRID
+                }
+                
+                const location = new google.maps.Map(document.querySelector("#location"), details);
+                }
+                const marker = new google.maps.Marker({position: details, map: map,title:'Our Location',label:'M'});
+                </script>
+    </div>
+
+            <!--The footer of the page-->
+    <footer class="fixed-footer">
+            <div class="container">
+                <hr/>
+                <p>&copy PropertyPro-lite 2019. <a href="#" id="footer-link">Terms | </a><a href="#">Privacy</a></p>
+
+            </div>
+       </footer>
+
+
+    </body>
+</html>
