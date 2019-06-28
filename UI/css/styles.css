@@ -201,7 +201,7 @@ button:hover, .icon:hover, #login-title:hover{
         .nav-links a{
         font-weight: bold;
         font-size: 14px;
-        color: rgb(225,225,225);
+        color: rgb(225, 225, 225);
         }
 
 
@@ -316,7 +316,7 @@ button:hover, .icon:hover, #login-title:hover{
 }
 
 .product-title{
-   color:black;  /*#16ca25;*/
+   
    padding: 1px;
    margin-top:0.12px;
    margin-bottom:0.1em;
@@ -326,9 +326,12 @@ button:hover, .icon:hover, #login-title:hover{
 }
 
 .product-title a{
-    color: black;
+    color: green;
 }
 
+.product-title a:hover{
+    opacity: 0.8;
+}
 
 .col-1 {
     width: 50%;
@@ -346,17 +349,7 @@ button:hover, .icon:hover, #login-title:hover{
     display: table;
 }
 
-/*.product-container{
-    padding-bottom: 2px;
-    border-bottom: 1px solid whitesmoke;
-    width: 49%;
-    float: left;
-    border-bottom: 1px solid green;
-    margin: 4px;
-    border-radius: 3px;
 
-}
-*/
 
 
 .products-page{
@@ -662,6 +655,10 @@ user can edit a product, delete it, and mark it as sold*/
 
 .contact{
     opacity: 0.6;
+}
+
+.full-height{
+    height:88vh;
 }
 
 .home-explain{
