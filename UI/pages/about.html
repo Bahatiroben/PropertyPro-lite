@@ -73,26 +73,7 @@
 
 
         </div>
-    <div class="map">
-        <div id="location"></div>
-
-       
-
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPNdvlLuUOv_1D7BYueHC02dTs2J5qjTo&callback=ourLocation">
-        </script>
-        <script>
-                function ourLocation() {
-                const details = {
-                    center: new google.maps.LatLng(-1.964660,30.058325),
-                    zoom: 15,
-                    mapTypeId: google.maps.MapTypeId.HYBRID
-                }
-                
-                const location = new google.maps.Map(document.querySelector("#location"), details);
-                }
-                const marker = new google.maps.Marker({position: details, map: map,title:'Our Location',label:'M'});
-                </script>
-    </div>
+  
 
             <!--The footer of the page-->
     <footer class="fixed-footer">

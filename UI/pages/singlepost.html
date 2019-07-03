@@ -33,17 +33,13 @@
         </script>
 
         <div class="separator"></div>
-<div class="search-box">
-    <form>
-      <input type="text" name="search" placeholder="Search...">
-    </form>
-</div>
+
 
 
 
     
 
-    <div class="products-page box single-property">
+    <div class=" box single-property">
 
         <div class="product-container box single-property">
             <div class="header">
@@ -85,7 +81,37 @@
                     
                 </div>
 
+        
+
             </div>
+
+        </div>
+        <div class="map box">
+            <div id="location"></div>
+    
+            <script>
+            function ourLocation() {
+            const details = {
+                center: new google.maps.LatLng(-1.964660,30.058325),
+                zoom: 15,
+                
+                mapTypeId: google.maps.MapTypeId.HYBRID
+
+    }
+
+
+            const location = new google.maps.Map(document.querySelector("#location"), details);
+            var marker = new google.maps.Marker({position: {
+                    lat: -1.964660, lng: 30.058325
+                }, map: location,title:'property',label:'D'});
+            }
+            </script>
+    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPNdvlLuUOv_1D7BYueHC02dTs2J5qjTo&callback=ourLocation">
+    </script>        
+
+
+        </div>
             
  
         </div>
