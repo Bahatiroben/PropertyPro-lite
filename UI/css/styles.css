@@ -551,6 +551,7 @@ legend{
 user can edit a product, delete it, and mark it as sold*/
 .single-property{
     width: 100%;
+    margin: 5px;
 }
 
 .single-property div{
@@ -638,10 +639,12 @@ user can edit a product, delete it, and mark it as sold*/
 
 .map{
     width: 100%;
+    margin-top: 5px;
+    padding: 5px;
 }
 #location{
     width:100%;
-    height:400px;
+    height:350px;
     background:yellow
 }
 
