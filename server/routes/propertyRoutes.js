@@ -1,13 +1,14 @@
 import express from 'express';
-import Property from '../controllers/propertyControllers';
+import property from '../controllers/propertyControllers';
 
 // properties toutes
 const router = express.Router();
 
-router.post('/property', Property.create);
+router.post('/property', property.create);
 router.route('/property/:id')
-	.patch(Property.update)
-	.delete(Property.delete)
-	.get(Property.findOne);
-router.patch('/:id/sold', Property.sold);
-router.get('/?type=propertyType', Property.search);
+	.patch(property.update)
+	.delete(property.delete)
+	.get(property.findOne);
+router.patch('/:id/sold', property.sold);
+router.get('/?type=propertyType', property.search);
+export default router;
