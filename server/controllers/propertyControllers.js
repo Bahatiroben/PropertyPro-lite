@@ -1,4 +1,4 @@
-import { PropertyModel } from '../models/propertyModels';
+import PropertyModel from '../models/propertyModels';
 
 const propertyConrtoller = {
 	create(req, res) {
