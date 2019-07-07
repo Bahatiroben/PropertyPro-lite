@@ -12,7 +12,9 @@
     },
     "ecmaFeatures": {
       "classes": true,
-      "modules": true
+      "modules": true,
+      "objectLiteralShorthandMethods": true,
+      "experimentalObjectRestSpread": true
     },
     "rules": {
         "no-console": 1,
