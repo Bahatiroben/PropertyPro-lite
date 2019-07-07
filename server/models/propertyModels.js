@@ -15,7 +15,7 @@ import data from '../data/data.js';
 // “image_url” : String,
 // ...
 // }
-class Property{
+class PropertyModel{
     create(details){
         const newProperty = {...details};
         newProperty.id = uuid.v4();
@@ -86,4 +86,4 @@ class Property{
 
 }
 
-module.exports = new Property
+export default new PropertyModel;
