@@ -17,7 +17,10 @@
       "experimentalObjectRestSpread": true
     },
     "rules": {
-        "no-console": 1,
+      "no-tabs": 0,
+      "allowIndentationTabs": true,
+      "no-console": 1,
+      "indent": ["error", "tab"],
       "comma-dangle": 0,
       "linebreak-style":0,
       "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
