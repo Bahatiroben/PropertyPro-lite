@@ -18,26 +18,26 @@ import data from '../data/data';
 
 class UserModel {
 	signup(details) {
-		this.newUser = { ...details };
+		const newUser = { ...details };
 		// check the existence
 		for (let index = 0; index < data.users.length; index++) {
-			if (this.newUser.email === data.users[index].email); {
+			if (newUser.email === data.users[index].email); {
 				return { status: 301, message: 'user already exist' };
 			}
 		}
-		this.newUser.id = uuid.v4();
-		data.users.push(this.newUser);
-		return data.users[data.users.indexOf(this.newUser)];
+		newUser.id = uuid.v4();
+		data.users.push(newUser);
+		return data.users[data.users.indexOf(newUser)];
 	}
 
 	login({ email, password }) {
 		// check if the user exist;
-		this.me = data.users.find(user => user.email === email);
-		if (this.me.password === password) {
-			return this.me;
+		const me = data.users.find(user => user.email === email);
+		if (me.password === password) {
+			return me;
 		}
 		return { err: 'email or password incorrect' };
 	}
 }
 
-export default new UserModel();
+export default UserModel;

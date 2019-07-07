@@ -1,6 +1,8 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 import uuid from 'uuid';
 import moment from 'moment';
-import data from '../data/data.js';
+import data from '../data/data';
 
 // {
 // “id” : Integer,
@@ -15,75 +17,68 @@ import data from '../data/data.js';
 // “image_url” : String,
 // ...
 // }
-class PropertyModel{
-    create(details){
-        const newProperty = {...details};
-        newProperty.id = uuid.v4();
-        newProperty.status = "available";
-        newProperty.created_on = moment.now();
-        data.properties.push(newProperty);
-        return data.properties[data.properties.indexOf(newProperty)]
-    }
+class PropertyModel {
+	create(details) {
+		const newProperty = { ...details };
+		newProperty.id = uuid.v4();
+		newProperty.status = 'available';
+		newProperty.created_on = moment.now();
+		data.properties.push(newProperty);
+		return data.properties[data.properties.indexOf(newProperty)];
+	}
 
-    findOne(id){
-        const property = data.properties.find(prop=>{
-            return prop.id === id;
+	findOne(id) {
+		const property = data.properties.find(prop => prop.id === id);
+		return property;
+	}
 
-        })
-        return property;
-    }
+	findAll() {
+		return data.properties;
+	}
 
-    findAll(){
-        return data.properties;
-    }
+	findByType(type) {
+		const properties = data.properties.find(prop => prop.type === type);
+		return properties;
+	}
 
-    findByType(type){
-        const properties = data.properties.find(prop=>{
-            prop.type === type;
-        })
-        return properties;
-    }
+	delete(id) {
+		// find if the property exist
+		const property = this.findOne(id);
+		if (property) {
+			const index = data.properties.indexOf(property);
+			data.properties.splice(index, 1);
+			return { status: 200, message: 'property deleted successfully' };
+		}
+		return { error: 'not found' };
+	}
 
-    delete(id){
-        //find if the property exist
-        const property = this.findOne(id);
-        if(property){
-            const index = data.properties.indexOf(property);
-            data.properties.splice(index,1);
-            return {status: 200, message: "property deleted successfully"}
-        }
-        return {error: "not found"};
-    }
+	update(id, details) {
+		// find if the property exist
+		const property = this.findOne(id);
+		if (property) {
+			const index = data.properties.indexOf(property);
+			for (const prop in details) {
+				for (const sameprop in property) {
+					if (prop === sameprop) {
+						property[prop] = details[sameprop];
+					}
+				}
+			}
 
-    update(id, details){
-        //find if the property exist
-        const property = this.findOne(id)
-        if(property){
-            const index = data.properties.indexOf(property);
-            for(let prop in details){
-                for(let sameprop in property){
-                    if(prop === sameprop){
-                        property[prop] = details[sameprop];
-                    }
-                }
-            }
+			return data.properties.splice(index, 1, property);
+		}
+		return { error: 'not found' };
+	}
 
-             return data.properties.splice(index,1,property);
-
-        }
-        return {error: "not found"};
-    }
-
-    sold(id){
-        const property = this.findOne(id);
-        const index = data.properties.indexOf(property);
-        if(property){
-            property.status = "sold";
-            data.properties.splice(index,1,property);
-            return data.properties[index];
-        }
-    }
-
+	sold(id) {
+		const property = this.findOne(id);
+		const index = data.properties.indexOf(property);
+		if (property) {
+			property.status = 'sold';
+			data.properties.splice(index, 1, property);
+			return data.properties[index];
+		}
+	}
 }
 
-export default new PropertyModel;
+export default PropertyModel;

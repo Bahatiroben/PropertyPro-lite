@@ -18,6 +18,7 @@
       "experimentalObjectRestSpread": true
     },
     "rules": {
+      "class-methods-use-this": 0,
       "no-tabs": 0,
       "allowIndentationTabs": true,
       "no-console": 1,
