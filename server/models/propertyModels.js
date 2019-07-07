@@ -1,3 +1,4 @@
+/* eslint-disable space-infix-ops */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 import uuid from 'uuid';
@@ -36,9 +37,21 @@ class PropertyModel {
 		return data.properties;
 	}
 
-	findByType(type) {
-		const properties = data.properties.find(prop => prop.type === type);
-		return properties;
+	search(input) {
+		const keys = Object.keys(input);
+		const result = data.properties.filter((prop) => {
+			for (const property in prop) {
+				for (let index = 0; index < keys.length; index++) {
+					const check = keys[index];
+					if (keys[index] === property) {
+						// eslint-disable-next-line eqeqeq
+						if (input[check]==prop[check]) {
+							return prop;
+						}
+					}
+				}
+			}
+		});
 	}
 
 	delete(id) {

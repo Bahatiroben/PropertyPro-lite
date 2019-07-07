@@ -16,9 +16,9 @@ const propertyConrtoller = {
 		res.status(200).json(property);
 	},
 
-	findByType(req, res) {
-		const property = PropertyModel.findByType(req.query.type);
-		res.status(200).json(property);
+	search(req, res) {
+		const result = PropertyModel.search(req.query);
+		res.status(200).json(result);
 	},
 
 	delete(req, res) {
