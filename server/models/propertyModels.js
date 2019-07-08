@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 
 /* eslint-disable space-infix-ops */
 /* eslint-disable guard-for-in */
@@ -40,20 +41,21 @@ class PropertyModel {
 
 	search(input) {
 		const keys = Object.keys(input);
-		const result = data.properties.filter((prop) => {
-			for (const property in prop) {
+		console.log(keys);
+		const result = data.users.filter((property) => {
+			for (let prop in property) {
 				for (let index = 0; index < keys.length; index++) {
-					const check = keys[index];
+					let check = keys[index];
 					// eslint-disable-next-line no-undef
-					if (keys[index] === property) {
-						// eslint-disable-next-line eqeqeq
-						if (input[check]==prop[check]) {
-							return prop;
+					if (check === prop) {
+						if (input[check] == property[check]) {
+							return property;
 						}
 					}
 				}
 			}
 		});
+		return result;
 	}
 
 	delete(id) {
