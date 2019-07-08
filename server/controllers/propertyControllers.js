@@ -11,14 +11,15 @@ const propertyController = {
 		res.status(200).json(property);
 	},
 
-	findAll(req, res) {
-		const property = PropertyModel.findAll();
-		res.status(200).json(property);
-	},
-
 	search(req, res) {
-		const result = PropertyModel.search(req.query);
-		res.status(200).json(result);
+		const params = { ...req.query };
+		if (params.keys && 1) {
+			const result = PropertyModel.search(params);
+			res.status(200).json(result);
+		} else {
+			const property = PropertyModel.findAll();
+			res.status(200).json(property);
+		}
 	},
 
 	delete(req, res) {
