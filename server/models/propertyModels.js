@@ -1,3 +1,4 @@
+
 /* eslint-disable space-infix-ops */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
@@ -43,6 +44,7 @@ class PropertyModel {
 			for (const property in prop) {
 				for (let index = 0; index < keys.length; index++) {
 					const check = keys[index];
+					// eslint-disable-next-line no-undef
 					if (keys[index] === property) {
 						// eslint-disable-next-line eqeqeq
 						if (input[check]==prop[check]) {
@@ -94,4 +96,4 @@ class PropertyModel {
 	}
 }
 
-export default PropertyModel;
+module.exports = new PropertyModel();
