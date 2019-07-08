@@ -20,10 +20,9 @@ class UserModel {
 	signup(details) {
 		const newUser = { ...details };
 		// check the existence
-		for (let index = 0; index < data.users.length; index++) {
-			if (newUser.email === data.users[index].email); {
-				return { status: 301, message: 'user already exist' };
-			}
+		const already = data.users.find(user => user.email === newUser.email);
+		if (already) {
+			return { status: 301, message: 'User already exist' };
 		}
 		newUser.id = uuid.v4();
 		data.users.push(newUser);
@@ -33,11 +32,14 @@ class UserModel {
 	login({ email, password }) {
 		// check if the user exist;
 		const me = data.users.find(user => user.email === email);
-		if (me.password === password) {
-			return me;
+		if (me) {
+			if (me.password === password) {
+				return me;
+			}
+			return { err: 'password incorrect' };
 		}
-		return { err: 'email or password incorrect' };
+		return { err: 'User not found' };
 	}
 }
 
-export default UserModel;
+module.exports = new UserModel();

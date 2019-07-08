@@ -12,4 +12,4 @@ class FlagModel {
 	}
 }
 
-export default FlagModel;
+module.exports = new FlagModel();

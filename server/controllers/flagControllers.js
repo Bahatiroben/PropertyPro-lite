@@ -1,4 +1,6 @@
+
 import FlagModel from '../models/flagModels';
+
 
 const flagController = {
 	flag(req, res) {
