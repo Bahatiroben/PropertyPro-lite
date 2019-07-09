@@ -41,7 +41,6 @@ class PropertyModel {
 
 	search(input) {
 		const keys = Object.keys(input);
-		console.log(keys);
 		const result = data.users.filter((property) => {
 			for (let prop in property) {
 				for (let index = 0; index < keys.length; index++) {

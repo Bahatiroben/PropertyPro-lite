@@ -1,5 +1,10 @@
+import express from 'express';
+import bodyParser from 'body-parser';
 import PropertyModel from '../models/propertyModels';
 
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 const propertyController = {
 	create(req, res) {
 		const property = PropertyModel.create(req.body);
@@ -12,9 +17,9 @@ const propertyController = {
 	},
 
 	search(req, res) {
-		const params = { ...req.query };
-		if (params.keys && 1) {
-			const result = PropertyModel.search(params);
+		const { query } = req;
+		if (query.keys) {
+			const result = PropertyModel.search(query);
 			res.status(200).json(result);
 		} else {
 			const property = PropertyModel.findAll();
