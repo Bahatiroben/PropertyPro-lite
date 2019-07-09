@@ -1,6 +1,6 @@
 
 body{
-    background-color: aliceblue;
+    background-color: whitesmoke;
 }
 
 .icon{
@@ -39,11 +39,11 @@ input {
 }
 
 input:hover, input:active{
-    border-color: #16ca25
+    border-color: #115674
 }
 
 .primary {
-    background-color: #16ca25;
+    background-color: #115674;
     color: white;
 }
 
@@ -57,7 +57,7 @@ input:hover, input:active{
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    border: 1px solid transparent;
+    border: 1px solid  #115674;
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
@@ -115,9 +115,16 @@ a{
     text-decoration: none;
 }
 
+.buy a:active, .buy a:visited{
+    color: whitesmoke;
+}
+
+button a{
+    color: whitesmoke;
+}
 .create, .create a{
     display: block;
-    color: #16ca25;
+    color: #115674;
     width: 50%;
     height: 2.5em;
     margin-left: auto;
@@ -138,7 +145,7 @@ a{
 
 
 button:hover, .icon:hover, #login-title:hover{
-    opacity: 0.5;
+    opacity: 0.9;
 }
 
 #forgot-password{
@@ -167,10 +174,10 @@ button:hover, .icon:hover, #login-title:hover{
         width: 100%;
         left: 0px;
         z-index: 3;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         min-height: 25px;
-        background-color: #16ca25;;
+        background-color: #115674;
         font-family: verdana, sans-serif;
         }
 
@@ -180,7 +187,7 @@ button:hover, .icon:hover, #login-title:hover{
         font-size: 12px;
         font-family: verdana;
         padding: 0px;
-        margin: 0px;
+        margin: 0px 10px;
         }
 
         .logo h4::after{
@@ -222,6 +229,7 @@ button:hover, .icon:hover, #login-title:hover{
             }
 
         .burger{
+            margin-right: 10px;
             display: none;
             cursor: pointer;
         }
@@ -253,7 +261,7 @@ button:hover, .icon:hover, #login-title:hover{
                 right:0 ;
                 height:80vh;
                 top: 6vh;
-                background-color: #11aa25;
+                background-color: #115674;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -326,7 +334,7 @@ button:hover, .icon:hover, #login-title:hover{
 }
 
 .product-title a{
-    color: green;
+    color: #115674;
 }
 
 .product-title a:hover{
@@ -361,8 +369,8 @@ button:hover, .icon:hover, #login-title:hover{
 
 .buy {
     width: 70px;
-    background-color: #16ca25;
-    color: black;
+    background-color: #115674;
+    color: whitesmoke;
     cursor: pointer;
     text-align: center;
     border: 1px solid transparent;
@@ -378,22 +386,7 @@ button:hover, .icon:hover, #login-title:hover{
     font-size: 0.8em;
 }
 
-.price::before{
-    content: "Price: ";
-    color: green;
-    font-weight: bold;
-}
 
-.shipping::before{
-    content: "Shipping: ";
-    color: green;
-    font-weight: bold;
-}
-.type::before{
-    content: "Type: ";
-    color: green;
-    font-weight: bold;
-}
 
     @media only screen and (max-width:800px) {
           /* For mobile phones: */
@@ -465,14 +458,14 @@ button:hover, .icon:hover, #login-title:hover{
         }
     }
 
-        input, select, textarea, .save{
+        input, select, textarea{
             width: 100%;
             padding: 0.1em;
             margin: 2px;
             font-size: 1.2em;
             border-radius: 0.1em;
-            color: green;
-            border-left: 3px solid rgba(0,200,0,0.8);
+            color: #115674;
+            border-left: 3px solid rgba(42, 58, 92, 0.8);
 
         }
 
@@ -489,7 +482,7 @@ button:hover, .icon:hover, #login-title:hover{
 
 
 legend{
-    color: green;
+    color: #115674;
     font-weight: bold;
     font-family: sans-serif;
     font-size: 1em
@@ -570,7 +563,7 @@ user can edit a product, delete it, and mark it as sold*/
 /* my products*/
 .my-products{
     font-family: 'Courier New', Courier, monospace;
-    color: green;
+    color: #115674;
 }
 
 /*end of myproducts*/
@@ -580,7 +573,7 @@ user can edit a product, delete it, and mark it as sold*/
 
 
     .home-section{
-        background: url(../images/head.jpg);
+        background: url(../images/img1.jpg);
         width: 100%;
         min-height: 40vw;
         background-position: center;
@@ -589,27 +582,18 @@ user can edit a product, delete it, and mark it as sold*/
     }
 
     .home-present{
-
+        color: whitesmoke;
         width: 60%;
-        margin-left: auto;
-        margin-right: auto;
+        margin: auto;
         
     }
-
-    .home-present button{
-        margin-left: auto;
-        margin-top: 20px;
-        font-weight: bold;
-        font-size: 1em;
-        
-    }
-
     
 
     .get-started{
         width: 50%;
         margin: auto;
     }
+
 
     .home-present div{
         font-family: sans-serif;
@@ -643,16 +627,16 @@ user can edit a product, delete it, and mark it as sold*/
 
 .about h1{
     font-weight: bold;
-    color: green;
+    color: #115674;
     font-size: 2em;
     font-family:courier, Geneva, Tahoma, sans-serif;
 
 }
 .about h2{
     font-family: sans-serif;
-    color: silver;
+    color: #115674;
     width: 28%;
-    background-color: darkgreen;
+    background-color: dark#115674;
     border-radius: 8px;
 }
 
@@ -667,16 +651,27 @@ user can edit a product, delete it, and mark it as sold*/
 .home-explain{
     display: grid;
     grid-template-columns: auto auto;
-    background-color: green;
+    background-color: whitesmoke;
+    margin-top: 20px;
+    padding: 0px;
+    font-size: 1.2em;
+    font-family: courier;
     
+}
+
+.btn-round{
+    width: 50%;
+    
+    font-size: 1.8em;
+    position: absolute;
+    top: 45vh;
+    margin: auto;
 }
 
 .home-explain p{
     margin: 5px;
     padding: 5px;
-    font-size: 1.2em;
-    font-family: courier;
-    color: whitesmoke
+    
 }
 
 @media only screen and (max-width:800px) {
