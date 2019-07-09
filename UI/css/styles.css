@@ -330,11 +330,11 @@ button:hover, .icon:hover, #login-title:hover{
    margin-bottom:0.1em;
    font-family: courier;
    font-size: 1.1em;
-   opacity: 0.8;
+  
 }
 
 .product-title a{
-    color: #115674;
+    color:black;
 }
 
 .product-title a:hover{
@@ -634,9 +634,8 @@ user can edit a product, delete it, and mark it as sold*/
 }
 .about h2{
     font-family: sans-serif;
-    color: #115674;
     width: 28%;
-    background-color: dark#115674;
+    background-color: #115674;
     border-radius: 8px;
 }
 
@@ -680,4 +679,54 @@ user can edit a product, delete it, and mark it as sold*/
     }
 
 }
+
+.popup{
+    position: absolute;
+    top: -100px;
+    transition: top 0.5s ease-in;
+}
+
+.modal {
+    border-radius: 5px;
+    color: whitesmoke;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0px 1em;
+    margin-bottom: 1rem;
+    background-color: #115674;;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    top: 7.5vh;
+    left: 20%;
+    transition: top 0.5s ease-in;
+    
+}
+side a{
+    text-decoration: none;
+    color: whitesmoke;
+
+}
+
+side a:hover{
+    opacity: 0.8;
+}
+.modal p, .modal span {
+    font-size: 1.2em;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+.modal side{
+    display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: verdana, sans-serif;
+}
+
+
+
+
 
