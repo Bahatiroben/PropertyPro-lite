@@ -2,13 +2,13 @@ import UserModel from '../models/userModels';
 
 const userController = {
 	signup(req, res) {
-		const newUser = UserModel.signup(req.body);
-		res.status(200).json(newUser);
+		const { status, code, data } = UserModel.signup(req.body);
+		res.status(code).json({ status, data });
 	},
 
 	login(req, res) {
-		const currentUser = UserModel.login(req.body);
-		res.status(200).json(currentUser);
+		const { status, code, data } = UserModel.login(req.body);
+		res.status(code).json({ status, data });
 	}
 };
 

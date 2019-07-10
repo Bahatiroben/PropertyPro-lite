@@ -18,27 +18,35 @@ import data from '../data/data';
 
 class UserModel {
 	signup(details) {
-		const newUser = { ...details };
-		// check the existence
-		const already = data.users.find(user => user.email === newUser.email);
-		if (already) {
-			return { status: 301, message: 'User already exist' };
+		try {
+			const newUser = { ...details };
+			if (!newUser.password || !newUser.email) {
+				return { status: 'error', code: 400, data: { message: 'email or password missing' } };
+			}
+			// check the existence
+			const already = data.users.find(user => user.email === newUser.email);
+			if (already) {
+				return { status: 'error', code: 403, data: { message: 'User already exist' } };
+			}
+			newUser.id = uuid.v4();
+			data.users.push(newUser);
+			return { status: 'Success', code: 201, data: data.users[data.users.indexOf(newUser)] };
+		} catch (err) {
+			return { status: 'error', code: 500, data: { message: 'internal Error' } };
 		}
-		newUser.id = uuid.v4();
-		data.users.push(newUser);
-		return data.users[data.users.indexOf(newUser)];
 	}
 
 	login({ email, password }) {
-		// check if the user exist;
+		// check if the user exist
 		const me = data.users.find(user => user.email === email);
 		if (me) {
-			if (me.password === password) {
-				return me;
+			// check if the password matches
+			if (me.password === password && me.email === email) {
+				return { status: 'success', code: 200, data: me };
 			}
-			return { err: 'password incorrect' };
+			return { status: 'error', code: 401, data: { message: ' email or password is incorrect' } };
 		}
-		return { err: 'User not found' };
+		return { status: 'error', code: 404, data: { message: 'User not found' } };
 	}
 }
 

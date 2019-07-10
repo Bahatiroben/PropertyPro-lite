@@ -2,7 +2,6 @@
 import uuid from 'uuid';
 import express from 'express';
 import bodyParser from 'body-parser';
-import flagRoute from './routes/flagRoutes';
 import propertyRoute from './routes/propertyRoutes';
 import userRoute from './routes/userRoutes';
 
@@ -16,7 +15,6 @@ app.get('/', (req, res) => {
 });
 app.use('/api/v1/property', propertyRoute);
 app.use('/api/v1/auth', userRoute);
-app.use('/api/v1/flag', flagRoute);
 
 
 app.listen(PORT, () => {

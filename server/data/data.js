@@ -40,6 +40,14 @@ const data = {
 			type: '2 bedroom', // 3 bedroom etc
 			created_on: moment.now(),
 			image_url: 'https: //www.imagesplaceholder.com/150/150',
+			flags: [
+				{
+					id: '3d3cd24d-ead7-4548-9a71-345edb93866e',
+					created_on: moment.now(),
+					reason: 'weird price', // [pricing, weird demands, etc]
+					description: 'the price doesnt match the regular prices',
+				}
+			]
 		},
 
 		{
@@ -55,15 +63,7 @@ const data = {
 			image_url: 'https: //www.imagesplaceholder.com/200/200',
 		}
 	],
-	flags: [
-		{
-			id: '3d3cd24d-ead7-4548-9a71-345edb93866e',
-			property_id: uuid.v4(),
-			created_on: moment.now(),
-			reason: 'weird price', // [pricing, weird demands, etc]
-			description: 'the price doesnt match the regular prices',
-		}
-	]
+
 };
 export default data;
 // {
