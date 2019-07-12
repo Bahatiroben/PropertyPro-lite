@@ -32,11 +32,12 @@ class PropertyModel {
 
 		try {
 			const newProperty = { ...details };
-			if (data.properties.length <= 0) {
-				newProperty.id = 1;
-			} else {
-				newProperty.id = data.properties[data.properties.length - 1].id + 1;
-			}
+			// if (data.properties.length <= 0) {
+			// 	newProperty.id = 1;
+			// } else {
+			// 	newProperty.id = data.properties[data.properties.length - 1].id + 1;
+			// }
+			newProperty.id = Math.floor(Math.random() * 10000);
 
 			newProperty.status = 'available';
 			newProperty.created_on = moment.now();

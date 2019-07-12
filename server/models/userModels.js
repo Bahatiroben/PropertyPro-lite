@@ -47,14 +47,14 @@ class UserModel {
 		if (already) {
 			return { status: 'error', code: 403, data: { message: 'User already exist' } };
 		}
-		if (data.users.length === 0) {
-			newUser.id = 1;
-		} else {
-			newUser.id = data.users[data.users.length - 1].id + 1;
-		}
+		newUser.id = Math.floor(Math.random() * 10000);
 
 		const output = { firstName, lastName, email };
 		output.id = newUser.id;
+		newUser.isAdmin = false;
+		output.isAdmin = false;
+		newUser.createdDate = new Date();
+		output.createdDate = newUser.createdDate;
 		data.users.push(newUser);
 		return { status: 'Success', code: 201, data: output };
 	}
@@ -65,7 +65,7 @@ class UserModel {
 		} = userDetails;
 
 		if (!email || !password) {
-			return { status: 'error', code: 401, data: { message: 'all  are required' } };
+			return { status: 'error', code: 400, data: { message: 'All fields are required' } };
 		}
 		// check if the user exist
 		const me = data.users.find(user => user.email === email);
@@ -77,8 +77,12 @@ class UserModel {
 		} = me;
 
 		// check if the password matches
-		if (!helper.checkThepassword(hashedPassword, password)) {
-			return { status: 'error', code: 401, data: { message: 'The password is incorrect!!!' } };
+		try {
+			if (!helper.checkThepassword(hashedPassword, password)) {
+				return { status: 'error', code: 401, data: { message: 'The password is incorrect' } };
+			}
+		} catch (error) {
+			return { status: 'error', code: 500, data: { message: 'internal error' } };
 		}
 		const payload = {
 			id, firstName, lastName, email

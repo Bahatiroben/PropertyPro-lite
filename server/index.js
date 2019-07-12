@@ -23,3 +23,4 @@ app.use('/api/v1/auth', userRoute);
 app.listen(PORT, () => {
 	console.log(`server listening on port ${PORT}...`);
 });
+module.exports = app;
