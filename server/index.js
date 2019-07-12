@@ -2,10 +2,13 @@
 import uuid from 'uuid';
 import express from 'express';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 import propertyRoute from './routes/propertyRoutes';
 import userRoute from './routes/userRoutes';
 
+dotenv.config();
 const PORT = process.env.PORT || 3000;
+console.log(process.env.PORT);
 const app = express();
 // middle wares
 app.use(bodyParser.json());

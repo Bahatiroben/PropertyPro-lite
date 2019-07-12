@@ -1,5 +1,6 @@
 import UserModel from '../models/userModels';
 
+
 const userController = {
 	signup(req, res) {
 		const { status, code, data } = UserModel.signup(req.body);

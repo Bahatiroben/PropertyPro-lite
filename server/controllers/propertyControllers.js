@@ -7,7 +7,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const propertyController = {
 	create(req, res) {
-		const { status, code, data } = PropertyModel.create(req.body);
+		const { status, code, data } = PropertyModel.create(req);
+
 		res.status(code).json({ status, data });
 	},
 
@@ -18,6 +19,7 @@ const propertyController = {
 
 	search(req, res) {
 		const { query } = req;
+
 		if (Object.keys(query).length > 0) {
 			const { status, code, data } = PropertyModel.search(query);
 			res.status(code).json({ status, data });
@@ -28,17 +30,17 @@ const propertyController = {
 	},
 
 	delete(req, res) {
-		const { status, code, data } = PropertyModel.delete(req.params.id);
+		const { status, code, data } = PropertyModel.delete(req);
 		res.status(code).json({ status, data });
 	},
 
 	update(req, res) {
-		const { status, code, data } = PropertyModel.update(req.params.id, req.body);
+		const { status, code, data } = PropertyModel.update(req);
 		res.status(code).json({ status, data });
 	},
 
-	sold(req, res) {	
-		const { status, code, data } = PropertyModel.sold(req.params.id);
+	sold(req, res) {
+		const { status, code, data } = PropertyModel.sold(req);
 		res.status(code).json({ status, data });
 	}
 };
