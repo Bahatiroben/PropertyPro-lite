@@ -1,15 +1,16 @@
 import express from 'express';
 import property from '../controllers/propertyControllers';
 import flag from '../controllers/flagControllers';
+import helper from '../helpers/helper';
 
 // properties toutes
 const router = express.Router();
 
 router.get('/', property.search);
-router.post('/', property.create);
+router.post('/', helper.verifyToken, property.create);
 router.get('/:id', property.findOne);
-router.patch('/:id/flag', flag.flag);
-router.patch('/:id', property.update);
-router.delete('/:id', property.delete);
-router.patch('/:id/sold', property.sold);
+router.patch('/:id/flag', helper.verifyToken, helper.verifyToken, flag.flag);
+router.patch('/:id', helper.verifyToken, property.update);
+router.delete('/:id', helper.verifyToken, property.delete);
+router.patch('/:id/sold', helper.verifyToken, property.sold);
 module.exports = router;
