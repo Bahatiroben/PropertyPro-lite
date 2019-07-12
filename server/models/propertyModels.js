@@ -40,7 +40,7 @@ class PropertyModel {
 			newProperty.id = Math.floor(Math.random() * 10000);
 
 			newProperty.status = 'available';
-			newProperty.created_on = moment.now();
+			newProperty.createdOn = moment.now();
 			newProperty.flags = [];
 			newProperty.ownerId = id;
 			data.properties.push(newProperty);
@@ -197,9 +197,14 @@ class PropertyModel {
 
 		if (property) {
 			const index = data.properties.indexOf(property);
-			property.status = 'sold';
+			if (property.status === 'sold') {
+				property.status = 'available';
+			} else {
+				property.status = 'sold';
+			}
+
 			data.properties.splice(index, 1, property);
-			return { status: 'success', code: 200, data: data.properties[index] };
+			return { status: 'success', code: 201, data: data.properties[index] };
 		}
 		return { status: 'error', code: 404, data: { message: ' Property not found' } };
 	}

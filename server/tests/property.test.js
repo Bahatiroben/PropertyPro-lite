@@ -34,8 +34,8 @@ describe('/property routes', () => {
 				title: 'A remote placed house for rent',
 				imageUrl: 'https://via.placeholder.com',
 				price: 2000,
-                address: 'kigali',
-                type: 'flat'
+				address: 'kigali',
+				type: 'flat'
 			};
 			chai.request(app)
 				.post('/api/v1/property')
@@ -113,7 +113,7 @@ describe('/property routes', () => {
 				});
 		});
 	});
-    // end of creating property
+	// end of creating property
 	describe('Mark property sold if available', () => {
 		it('it should change the destination', (done) => {
 			chai.request(app)
@@ -123,24 +123,24 @@ describe('/property routes', () => {
 				.end((err, res) => {
 					res.should.have.status(201);
 					res.body.should.be.a('object');
-                    res.body.should.have.property('status').eql('success');
-                    re.body.should.have.property('data');
-                    res.body.data.should.have.property('id').eql(propertyId);
-                    res.body.data.should.have.property('ownerId').eql(ownerId);
-                    re.body.data.should.have.property('status').eql('sold')
-                    res.body.data.should.have.property('title').eql('A remote placed house for rent');
+					res.body.should.have.property('status').eql('success');
+					res.body.should.have.property('data');
+					res.body.data.should.have.property('id').eql(propertyId);
+					res.body.data.should.have.property('ownerId').eql(ownerId);
+					res.body.data.should.have.property('status').eql('sold');
+					res.body.data.should.have.property('title').eql('A remote placed house for rent');
 					res.body.data.should.have.property('price').eql(2000);
 					res.body.data.should.have.property('imageUrl').eql('https://via.placeholder.com');
 					res.body.data.should.have.property('address').eql('kigali');
-					res.body.should.have.property('price').eql(10350);	
+					res.body.should.have.property('price').eql(10350);
 					done();
 				});
 		});
-    });
-    // end of mark sold
+	});
+	// end of mark sold
 
-    // start of mask available
-    describe('mark it available if sold', () => {
+	// start of mask available
+	describe('mark it available if sold', () => {
 		it('it should change the destination', (done) => {
 			chai.request(app)
 				.patch(`/api/v1/property/${propertyId}/sold`)
@@ -149,117 +149,118 @@ describe('/property routes', () => {
 				.end((err, res) => {
 					res.should.have.status(201);
 					res.body.should.be.a('object');
-                    res.body.should.have.property('status').eql('success');
-                    re.body.should.have.property('data');
-                    res.body.data.should.have.property('id').eql(propertyId);
-                    res.body.data.should.have.property('ownerId').eql(ownerId);
-                    re.body.data.should.have.property('status').eql('available');
-                    res.body.data.should.have.property('title').eql('A remote placed house for rent');
+					res.body.should.have.property('status').eql('success');
+					res.body.should.have.property('data');
+					res.body.data.should.have.property('id').eql(propertyId);
+					res.body.data.should.have.property('ownerId').eql(ownerId);
+					res.body.data.should.have.property('status').eql('available');
+					res.body.data.should.have.property('title').eql('A remote placed house for rent');
 					res.body.data.should.have.property('price').eql(2000);
 					res.body.data.should.have.property('imageUrl').eql('https://via.placeholder.com');
 					res.body.data.should.have.property('address').eql('kigali');
-					res.body.should.have.property('price').eql(10350);	
+					res.body.should.have.property('price').eql(10350);
 					done();
 				});
 		});
-    });
-    
-    // end of mark
+	});
 
-    // update
+	// end of mark
 
-    describe('update a property', () => {
+	// update
+
+	describe('update a property', () => {
 		it('it should update a property', (done) => {
 			chai.request(app)
 				.patch(`/api/v1/property/${propertyId}/sold`)
 				.set('authorization', `Bearer ${userToken}`)
-                .send({title: ' a strong and and durable house for sale',
-                price: 5000,
-            })
+				.send({
+					title: ' a strong and and durable house for sale',
+					price: 5000,
+				})
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('object');
-                    res.body.should.have.property('status').eql('success');
-                    re.body.should.have.property('data');
-                    res.body.data.should.have.property('id').eql(propertyId);
-                    res.body.data.should.have.property('ownerId').eql(ownerId);
-                    res.body.data.should.have.property('title').eql('a strong and and durable house for sale');
+					res.body.should.have.property('status').eql('success');
+					res.body.should.have.property('data');
+					res.body.data.should.have.property('id').eql(propertyId);
+					res.body.data.should.have.property('ownerId').eql(ownerId);
+					res.body.data.should.have.property('title').eql('a strong and and durable house for sale');
 					res.body.data.should.have.property('price').eql(5000);
 					res.body.data.should.have.property('imageUrl').eql('https://via.placeholder.com');
-					res.body.data.should.have.property('address').eql('kigali');	
+					res.body.data.should.have.property('address').eql('kigali');
 					done();
 				});
-        });
-    });
+		});
+	});
 
-    describe('flag a property', () => {
+	describe('flag a property', () => {
 		it('it should flag a property', (done) => {
 			chai.request(app)
 				.patch(`/api/v1/property/${propertyId}/flag`)
 				.end((err, res) => {
 					res.should.have.status(201);
 					res.body.should.be.a('object');
-                    res.body.should.have.property('status').eql('success');
-                    re.body.should.have.property('data');
-                    res.body.data.should.have.property('message').eql('flagged successfully');
+					res.body.should.have.property('status').eql('success');
+					res.body.should.have.property('data');
+					res.body.data.should.have.property('message').eql('flagged successfully');
 					done();
 				});
-        });
-    });
-    // end of flag
-    // start of
-    describe('get a property by id', () => {
+		});
+	});
+	// end of flag
+	// start of
+	describe('get a property by id', () => {
 		it('it should update a property', (done) => {
 			chai.request(app)
 				.get(`/api/v1/property/${propertyId}`)
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('object');
-                    res.body.should.have.property('status').eql(200);
-                    re.body.should.have.property('data');
-                    res.body.data.should.have.property('id').eql(propertyId);
-                    res.body.data.should.have.property('ownerId').eql(ownerId);
-                    res.body.data.should.have.property('title').eql('a strong and and durable house for sale');
+					res.body.should.have.property('status').eql(200);
+					res.body.should.have.property('data');
+					res.body.data.should.have.property('id').eql(propertyId);
+					res.body.data.should.have.property('ownerId').eql(ownerId);
+					res.body.data.should.have.property('title').eql('a strong and and durable house for sale');
 					res.body.data.should.have.property('price').eql(5000);
 					res.body.data.should.have.property('imageUrl').eql('https://via.placeholder.com');
-					res.body.data.should.have.property('address').eql('kigali');	
+					res.body.data.should.have.property('address').eql('kigali');
 					done();
 				});
-        });
-    });
-    describe('get all properties', () => {
+		});
+	});
+	describe('get all properties', () => {
 		it('it should update a property', (done) => {
 			chai.request(app)
 				.get('/api/v1/property/')
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('object');
-                    res.body.should.have.property('status').eql(200);
-                    re.body.should.have.property('data');
-                    res.body.data.should.be.a('object');	
+					res.body.should.have.property('status').eql(200);
+					res.body.should.have.property('data');
+					res.body.data.should.be.a('object');
 					done();
 				});
-        });
-    });
-    // serach by type
-    describe('get a property by id', () => {
+		});
+	});
+	// serach by type
+	describe('get a property by id', () => {
 		it('it should update a property', (done) => {
 			chai.request(app)
 				.get('/api/v1/property/?type=flat')
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('object');
-                    res.body.should.have.property('status').eql(200);
-                    res.body.should.have.property('data');
-                    res.body.data.should.be.a('object');	
+					res.body.should.have.property('status').eql(200);
+					res.body.should.have.property('data');
+					res.body.data.should.be.a('object');
 					done();
 				});
-        });
-    });
+		});
+	});
 
-    // delete 
+	// delete
 
-    describe('delete a property ', () => {
+	describe('delete a property ', () => {
 		it('it should delete a property', (done) => {
 			chai.request(app)
 				.delete(`/api/v1/property/${propertyId}`)
@@ -267,10 +268,11 @@ describe('/property routes', () => {
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('object');
-                    res.body.should.have.property('status').eql('success');
-                    re.body.should.have.property('data');
-                    res.body.data.should.have.property('message').eql('property deleted successfully');	
+					res.body.should.have.property('status').eql('success');
+					res.body.should.have.property('data');
+					res.body.data.should.have.property('message').eql('property deleted successfully');
 					done();
 				});
-        });
-    })});
+		});
+	});
+});
