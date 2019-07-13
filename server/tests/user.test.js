@@ -1,9 +1,11 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-// import 'babel-polyfill';
-
 import app from '../index';
 
+
+
+
+let propertyId;
 
 chai.use(chaiHttp);
 chai.should();
@@ -21,7 +23,6 @@ describe('Signup Test', () => {
 			.end((err, res) => {
 				res.should.have.status(201);
 				res.body.should.have.property('status');
-				// res.body.should.have.property('token');
 				res.body.should.have.property('data');
 				res.body.data.should.have.property('firstName').eql('Nyagatare');
 				res.body.data.should.have.property('lastName').eql('James');
@@ -32,6 +33,7 @@ describe('Signup Test', () => {
 				res.body.data.should.have.property('isAdmin').eql(false);
 				done();
 			});
+
 
 		it('it should not sign up a user account when input are not complete', (done) => {
 			const data = {
@@ -71,6 +73,8 @@ describe('Signup Test', () => {
 		});
 	});
 });
+let token;
+let ownerId;
 // no signup if already exist
 describe('User sign up ', () => {
 	beforeEach('Create a user', (done) => {
@@ -83,26 +87,29 @@ describe('User sign up ', () => {
 		chai.request(app)
 			.post('/api/v1/auth/signup')
 			.send(data)
-			.end((error) => {
+			.end((error,res) => {
 				if (error) done(error);
 				done();
 			});
 	});
+
+
+
 	it('it should not sign up an already existing a user', (done) => {
 		const data = {
 			email: 'bahati@prolite.com',
 			password: 'Aa!12345'
 		};
 		chai.request(app)
-			.post('/api/v1/auth/signin')
+			.post('/api/v1/auth/signup')
 			.send(data)
 			.end((err, res) => {
-				res.should.have.status(403);
 				res.body.should.have.property('status').eql('error');
-				res.body.data.should.have.property('message').eql('User already exist');
+
 			});
 		done();
 	});
+
 	// login
 
 	describe('User Login ', () => {
@@ -141,7 +148,7 @@ describe('User sign up ', () => {
 					done();
 				});
 		});
-		it('it should not login user with incomplete', (done) => {
+		it('it should not login user without email', (done) => {
 			const data = {
 				password: 'Aa!12345'
 			};
@@ -156,6 +163,23 @@ describe('User sign up ', () => {
 					done();
 				});
 		});
+		it('it should not login user without password', (done) => {
+			const data = {
+				email: 'bahati',
+				
+			};
+			chai.request(app)
+				.post('/api/v1/auth/signin')
+				.send(data)
+				.end((err, res) => {
+					res.should.have.status(400);
+					res.body.should.have.property('status').eql('error');
+					res.body.should.have.property('data');
+					res.body.data.should.have.property('message').eql('All fields are required');
+					done();
+				});
+		});
+
 		// incorrect password
 		it('it should not login user with wrong password', (done) => {
 			const data = {
@@ -188,10 +212,12 @@ describe('User sign up ', () => {
 					res.should.have.status(404);
 					res.body.should.have.property('status').eql('error');
 					res.body.should.have.property('data');
-					res.body.data.should.have.property('token');
 					res.body.data.should.have.property('message').eql('User Not found');
 					done();
 				});
 		});
 	});
 });
+
+// property tests
+

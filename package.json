@@ -2,11 +2,13 @@
   "name": "propertypro-lite",
   "version": "1.0.0",
   "description": "A platform that people can use to buy, sell or rent properties",
-  "main": "index.js",
+  "main": "./server/index.js",
   "scripts": {
+    "start": "node --require babel-core/register --require babel-polyfill ./server/index.js",
     "dev-start": "nodemon --exec babel-node ./server/index.js",
-    "test": "nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill server/tests/*.js --exit || true",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "test": "nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill server/tests/*.js --timeout 10000 --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "compile": "babel ./server -d ./compiled"
   },
   "repository": {
     "type": "git",

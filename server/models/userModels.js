@@ -5,17 +5,7 @@ import joi from 'joi';
 import data from '../data/data';
 import helper from '../helpers/helper';
 import schema from '../helpers/validation';
-// {
-// “id” : Integer,
-// “email” : String,
-// “first_name” : String,
-// “last_name” : String,
-// “password” : String,
-// “phoneNumber” : String,
-// “address” : String,
-// “is_admin” : Boolean,
-// ...
-// }
+
 
 class UserModel {
 	signup(details) {
@@ -49,14 +39,18 @@ class UserModel {
 		}
 		newUser.id = Math.floor(Math.random() * 10000);
 
+
 		const output = { firstName, lastName, email };
 		output.id = newUser.id;
+		const id = output.id;
 		newUser.isAdmin = false;
 		output.isAdmin = false;
 		newUser.createdDate = new Date();
 		output.createdDate = newUser.createdDate;
 		data.users.push(newUser);
-		return { status: 'Success', code: 201, data: output };
+		const payload = { id, firstName, lastName, email };
+		const token = helper.getToken(payload);
+		return { status: 'Success', code: 201, data: {token, ...output} };
 	}
 
 	login(userDetails) {

@@ -13,13 +13,13 @@ const schema = {
 		email: joi.string().email().required(),
 		phoneNumber: joi.string().regex(/^\+?[0-9]{3}-?[0-9]{7,12}$/).optional(), // +threedigits-sixto12digits
 		password: joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,128}$/).required()
-	}),
-	flag: joi.object().keys({
-		propertyId: joi.string().required(),
-		email: joi.string().email().required(),
-		reason: joi.string().min(5).max(30).required(),
-		description: joi.string().min(10).required()
-	})
+	})//,
+	// flag: joi.object().keys({
+	// 	id: joi.number().required(),
+	// 	email: joi.string().email().required(),
+	// 	reason: joi.string().min(5).max(50).required(),
+	// 	description: joi.string().min(5).required()
+	// })
 };
 
 export default schema;

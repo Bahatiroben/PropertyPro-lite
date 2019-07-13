@@ -11,9 +11,23 @@ const data = {
 		title: 'a brand new property',
 		price: 12000,
 		ownerId: 1,
-		location: 'kigali',
-		address: 'Muhanga',
-		imageUrl: 'https://via.placeholder.com/150'
-	}],
+		type:'flat',
+		location: 'gisagara',
+		address: 'huye',
+		imageUrl: 'https://via.placeholder.com/150',
+		flags: []
+	},
+	{
+		id: 2,
+		title: 'a big and old property',
+		price: 15000,
+		ownerId: 2,
+		type: '2 bedroom',
+		location: 'ruhango',
+		address: 'ruhango',
+		imageUrl: 'https://via.placeholder.com/150',
+		flags: []
+	}
+	],
 };
 module.exports = data;
