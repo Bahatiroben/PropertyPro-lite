@@ -5,7 +5,7 @@ import data from '../data/data';
 
 
 env.config();
-
+const SECRET_KEY = "7ok-VO7vW9qJArGzduVlvaevtGg"
 
 const Helper = {
 
@@ -23,7 +23,7 @@ const Helper = {
 	}) {
 		const token = jwt.sign({
 			id, email, firstName, lastName
-		}, process.env.SECRET_KEY);
+		}, SECRET_KEY);
 		return token;
 	},
 
@@ -35,7 +35,7 @@ const Helper = {
 		let output = 'nothing';
 		const token = bearerHeader.split(' ')[1];
 		try {
-			output = jwt.verify(token, process.env.SECRET_KEY);
+			output = jwt.verify(token, SECRET_KEY);
 		} catch (error) {
 			res.status(400).json({ status: 'error', message: 'Invalid Token' });
 		}
