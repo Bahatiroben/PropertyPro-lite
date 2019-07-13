@@ -9,7 +9,7 @@ I have already upload the UI template for this project on github and if you want
 Here is a list of all API Endpoints that you will find:
 * **GET/property** Fetch all available properties
 * **GET/propery/:propertyid** fetches a specific property basing on its id
-* **delete/parcels/:propertyid** deletes a specific property
+* **delete/property/:propertyid** deletes a specific property
 * **POST/property** Create a property
 * **GET/property/?type=anytype** Fetch a specific property by type
 * **patch/property/propertyId** updates a property
@@ -31,7 +31,7 @@ Here is a list of all API Endpoints that you will find:
 * CodeClimate and Coveralls for badges
 * Heroku for Deployment
 
-The url of the app on heroku is this one [https://propertylite.herokuapp.com/](http://sendparcel.herokuapp.com).
+The url of the app on heroku is this one [https://propertylite.herokuapp.com/](https://propertylite.herokuapp.com/).
 
 This is the list of all routes as on the **heroku deployment**:
 * Fetch all properties  [https://propertylite.herokuapp.com/api/v1/property](https://propertylite.herokuapp.com/api/v1/property)
