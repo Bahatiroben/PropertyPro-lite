@@ -5,7 +5,7 @@ import data from '../data/data';
 
 
 env.config();
-SECRET_KEY = "7ok-VO7vW9qJArGzduVlvaevtGg"
+const SECRET_KEY = "7ok-VO7vW9qJArGzduVlvaevtGg"
 
 const Helper = {
 
