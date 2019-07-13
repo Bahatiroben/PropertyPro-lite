@@ -32,14 +32,11 @@ class PropertyModel {
 
 		try {
 			const newProperty = { ...details };
-			if (data.properties.length <= 0) {
-				newProperty.id = 1;
-			} else {
-				newProperty.id = data.properties[data.properties.length - 1].id + 1;
-			}
+
+			newProperty.id = Math.floor(Math.random() * 10000);
 
 			newProperty.status = 'available';
-			newProperty.created_on = moment.now();
+			newProperty.createdOn = moment.now();
 			newProperty.flags = [];
 			newProperty.ownerId = id;
 			data.properties.push(newProperty);
@@ -52,9 +49,6 @@ class PropertyModel {
 	}
 
 	findOne(id) {
-		if (data.properties.length === 0) {
-			return { status: 'error', code: 204, data: { message: 'No properties in available' } };
-		}
 		// eslint-disable-next-line eqeqeq
 		const property = data.properties.find(prop => prop.id == id);
 		if (property === undefined) {
@@ -64,9 +58,6 @@ class PropertyModel {
 	}
 
 	findAll() {
-		if (data.properties.length === 0) {
-			return { status: 'error', code: 204, data: { message: 'No properties instock' } };
-		}
 		return { status: 200, code: 200, data: data.properties };
 	}
 
@@ -114,7 +105,7 @@ class PropertyModel {
 		}
 
 		if (prop.data.ownerId != id) {
-			return { status: 'error', code: 403, data: ' Forbiden ' };
+			return { status: 'error', code: 403, data: 'Forbiden' };
 		}
 
 		const property = prop.data;
@@ -143,7 +134,7 @@ class PropertyModel {
 		}
 
 		if (prop.data.ownerId != owner.id) {
-			return { status: 'error', code: 404, data: ' Property not found ' };
+			return { status: 'error', code: 404, data: 'Property not found' };
 		}
 
 		const property = { ...prop.data };
@@ -196,9 +187,14 @@ class PropertyModel {
 
 		if (property) {
 			const index = data.properties.indexOf(property);
-			property.status = 'sold';
+			if (property.status === 'sold') {
+				property.status = 'available';
+			} else {
+				property.status = 'sold';
+			}
+
 			data.properties.splice(index, 1, property);
-			return { status: 'success', code: 200, data: data.properties[index] };
+			return { status: 'success', code: 201, data: data.properties[index] };
 		}
 		return { status: 'error', code: 404, data: { message: ' Property not found' } };
 	}

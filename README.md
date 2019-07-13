@@ -15,7 +15,7 @@ Here is a list of all API Endpoints that you will find:
 * **GET/property/?type=anytype** Fetch a specific property by type
 * **patch/property/propertyId** updates a property
 * **patch/ property/:propertyId/flag** flags the property
-* **patch/property/:propertyId/sold** marks the property as sold or available 
+* **patch/property/:propertyId/sold** marks the property as sold or available
 * **post/signup** creates a user
 * **post/signin** logs in a user
 

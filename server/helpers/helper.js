@@ -32,8 +32,14 @@ const Helper = {
 		if (!bearerHeader) {
 			return res.status(403).json({ status: 'error', message: 'Not authorized!' });
 		}
+		let output = 'nothing';
 		const token = bearerHeader.split(' ')[1];
-		const { id, email } = jwt.verify(token, process.env.SECRET_KEY);
+		try {
+			output = jwt.verify(token, process.env.SECRET_KEY);
+		} catch (error) {
+			res.status(400).json({ status: 'error', message: 'Invalid Token' });
+		}
+		const { id, email } = output;
 		const user = data.users.find(user => user.id === id);
 		if (!user) {
 			return res.status(400).json({ status: 'error', message: 'Invalid Token' });
