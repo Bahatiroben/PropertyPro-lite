@@ -29,19 +29,19 @@ const Helper = {
 	verifyToken(req, res, next) {
 		const bearerHeader = req.headers.authorization;
 		if (!bearerHeader) {
-			return res.status(403).json({ status: 'error', message: 'Not authorized!' });
+			return res.status(403).json({ status: 403, error: 'Not authorized!' });
 		}
 		let output = 'nothing';
 		const token = bearerHeader.split(' ')[1];
 		try {
 			output = jwt.verify(token, process.env.SECRET_KEY);
 		} catch (error) {
-			res.status(400).json({ status: 'error', message: 'Invalid Token' });
+			res.status(400).json({ status: 400, error: 'Invalid Token' });
 		}
 		const { id, email } = output;
 		const user = data.users.find(user => user.id === id);
 		if (!user) {
-			return res.status(400).json({ status: 'error', message: 'Invalid Token' });
+			return res.status(400).json({ status: 400, error: 'Invalid Token' });
 		}
 		req.token = token;
 		req.payload = { id, email };

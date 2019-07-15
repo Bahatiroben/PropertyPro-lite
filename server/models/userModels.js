@@ -19,11 +19,11 @@ class UserModel {
 		}, schema.user);
 		if (error) {
 			if (error.details[0].type === 'any.required') {
-				return { status: 'error', code: 400, data: { message: 'All fields are required' } };
+				return { status: 400, data: { error: 'All fields are required' } };
 			} if (error.details[0].type === 'string.regex.base') {
-				return { status: 'error', code: 400, data: { message: 'The password must contain an uppercase, lowercase, number, special character and at least 8 characters long' } };
+				return { status: 400, data: { error: 'The password must contain an uppercase, lowercase, number, special character and at least 8 characters long' } };
 			}
-			return { status: 'error', code: 400, data: error.details[0].message };
+			return { status: 400, data: { error: error.details[0].message } };
 		}
 		//
 
@@ -35,9 +35,14 @@ class UserModel {
 		// check the existence
 		const already = data.users.find(user => user.email === email);
 		if (already) {
-			return { status: 'error', code: 403, data: { message: 'User already exist' } };
+			return { status: 403, data: { error: 'User already exist' } };
 		}
-		newUser.id = Math.floor(Math.random() * 10000);
+
+		if (data.users.length === 0) {
+			newUser.id = 1;
+		} else {
+			newUser.id = data.users[data.users.length - 1].id + 1;
+		}
 
 
 		const output = { firstName, lastName, email };
@@ -48,9 +53,11 @@ class UserModel {
 		newUser.createdDate = new Date();
 		output.createdDate = newUser.createdDate;
 		data.users.push(newUser);
-		const payload = { id, firstName, lastName, email };
+		const payload = {
+			id, firstName, lastName, email
+		};
 		const token = helper.getToken(payload);
-		return { status: 'Success', code: 201, data: {token, ...output} };
+		return { status: 201, data: { token, ...output } };
 	}
 
 	login(userDetails) {
@@ -59,12 +66,12 @@ class UserModel {
 		} = userDetails;
 
 		if (!email || !password) {
-			return { status: 'error', code: 400, data: { message: 'All fields are required' } };
+			return { status: 400, data: { error: 'All fields are required' } };
 		}
 		// check if the user exist
 		const me = data.users.find(user => user.email === email);
 		if (!me) {
-			return { status: 'error', code: 404, data: { message: 'User Not found' } };
+			return { status: 404, data: { error: 'User Not found' } };
 		}
 		const {
 			lastName, firstName, id, hashedPassword
@@ -73,10 +80,10 @@ class UserModel {
 		// check if the password matches
 		try {
 			if (!helper.checkThepassword(hashedPassword, password)) {
-				return { status: 'error', code: 401, data: { message: 'The password is incorrect' } };
+				return { status: 401, data: { error: 'The password is incorrect' } };
 			}
 		} catch (error) {
-			return { status: 'error', code: 500, data: { message: 'internal error' } };
+			return { status: 500, data: { error: 'internal error' } };
 		}
 		const payload = {
 			id, firstName, lastName, email
@@ -85,7 +92,7 @@ class UserModel {
 
 		if (me.email === email) {
 			// data.users.find(user => user.email === email).isLoggedIn = true;
-			return { status: 'success', code: 200, data: { token, ...payload } };
+			return { status: 200, data: { token, ...payload } };
 		}
 	}
 }

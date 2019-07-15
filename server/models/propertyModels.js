@@ -22,50 +22,50 @@ class PropertyModel {
 
 		if (error) {
 			if (error.details[0].type === 'any.required') {
-				return { status: 'error', code: 400, data: { message: 'All fields are required' } };
+				return { status: 400, data: { error: 'All fields are required' } };
 			}
-			return { status: 'error', code: 400, data: { message: error.details[0].message } };
+			return { status: 400, data: { error: error.details[0].message } };
 		}
 
 		const { id } = req.payload;
 
 
-		try {
-			const newProperty = { ...details };
+		const newProperty = { ...details };
 
-			newProperty.id = Math.floor(Math.random() * 10000);
-
-			newProperty.status = 'available';
-			newProperty.createdOn = moment.now();
-			newProperty.flags = [];
-			newProperty.ownerId = id;
-			data.properties.push(newProperty);
-			// set the user as the admin
-			data.users.find(user => user.id===id).isAdmin = true;
-			return { status: 'success', code: 201, data: data.properties[data.properties.indexOf(newProperty)] };
-		} catch (err) {
-			return { status: 'error', code: 501, data: 'internal error' };
+		if (data.properties.length === 0) {
+			newProperty.id = 1;
+		} else {
+			newProperty.id = data.properties[data.properties.length -1].id + 1;
 		}
+
+		newProperty.status = 'available';
+		newProperty.createdOn = moment.now();
+		newProperty.flags = [];
+		newProperty.ownerId = id;
+		data.properties.push(newProperty);
+		// set the user as the admin
+		data.users.find(user => user.id===id).isAdmin = true;
+		return { status: 201, data: data.properties[data.properties.indexOf(newProperty)] };
 	}
 
 	findOne(id) {
 		// eslint-disable-next-line eqeqeq
 		const property = data.properties.find(prop => prop.id == id);
 		if (property === undefined) {
-			return { status: 'error', code: 404, data: { message: 'Property Not found' } };
+			return { status: 404, data: { error: 'Property Not found' } };
 		}
-		return { status: 200, code: 200, data: property };
+		return { status: 200, data: property };
 	}
 
 	findAll() {
-		return { status: 200, code: 200, data: data.properties };
+		return { status: 200, data: data.properties };
 	}
 
 
 	search(input) {
 		const keys = Object.keys(input);
 		if (data.properties.length === 0) {
-			return { status: 'error', code: 204, data: { message: 'No properties in stock' } };
+			return { status: 204, data: { error: 'No properties in stock' } };
 		}
 		// eslint-disable-next-line array-callback-return
 		const result = data.properties.filter((property) => {
@@ -84,9 +84,9 @@ class PropertyModel {
 		});
 
 		if (result.length !== 0) {
-			return { status: 'success', code: 200, data: result };
+			return { status: 200, data: result };
 		}
-		return { status: 'error', code: 404, data: { message: 'Property not found' } };
+		return { status: 404, data: { error: 'Property not found' } };
 	}
 
 	delete(req) {
@@ -96,23 +96,23 @@ class PropertyModel {
 
 		const owner = data.users.find(user => user.id == ownerId);
 		if (!owner.isAdmin) {
-			return { status: 'error', code: 401, data: { message: 'not Authorized' } };
+			return { status: 401, data: { error: 'not Authorized' } };
 		}
 		// find if the property exist
 		const prop = this.findOne(id);
-		if (prop.code !== 200) {
-			return { status: 'error', code: prop.code, data: prop.data };
+		if (prop.status !== 200) {
+			return { status: prop.status, data: prop.data };
 		}
 
 		if (prop.data.ownerId != ownerId) {
-			return { status: 'error', code: 403, data: 'Forbiden' };
+			return { status: 403, data: { error: 'Forbiden' } };
 		}
 
 		const property = prop.data;
 		if (property) {
 			const index = data.properties.indexOf(property);
 			data.properties.splice(index, 1);
-			return { status: 'success', code: 200, data: { message: 'property deleted successfully' } };
+			return { status: 200, data: { error: 'property deleted successfully' } };
 		}
 	}
 
@@ -121,7 +121,7 @@ class PropertyModel {
 		// eslint-disable-next-line eqeqeq
 		const owner = data.users.find(user => user.id == ownerId);
 		if (!owner.isAdmin) {
-			return { status: 'error', code: 401, data: { message: 'Not Authorized' } };
+			return { status: 401, data: { error: 'Not Authorized' } };
 		}
 		// find if the property exist
 
@@ -130,17 +130,17 @@ class PropertyModel {
 		let prop = this.findOne(id);
 		let index;
 
-		if (prop.code !== 200) {
-			return { status: 'error', code: prop.code, data: prop.data };
+		if (prop.status !== 200) {
+			return { status: prop.status, data: prop.data };
 		}
 
 		if (prop.data.ownerId != owner.id) {
-			return { status: 'error', code: 404, data: 'Property not found' };
+			return { status: 404, data: 'Property not found' };
 		}
 
 		const property = prop.data;
 		if (property) {
-			 index = data.properties.indexOf(property);
+			index = data.properties.indexOf(property);
 			for (let prop in details) {
 				for (let sameprop in property) {
 					if (prop === sameprop) {
@@ -157,15 +157,15 @@ class PropertyModel {
 
 			if (error) {
 				if (error.details[0].type === 'any.required') {
-					return { status: 'error', code: 400, data: { message: 'All fields are required' } };
+					return { status: 400, data: { error: 'All fields are required' } };
 				}
-				return { status: 'error', code: 400, data: { message: error.details[0].message } };
+				return { status: 400, data: { error: error.details[0].message } };
 			}
 
 			data.properties.splice(index, 1, property);
-			return { status: 'success', code: 201, data: data.properties[index] };
+			return { status: 201, data: data.properties[index] };
 		}
-		return { status: 'error', code: 404, data: ' Property not found' };
+		return { status: 404, data: ' Property not found' };
 	}
 
 	sold(req) {
@@ -173,12 +173,12 @@ class PropertyModel {
 		const { id } = req.params;
 		const prop = this.findOne(id);
 
-		if (prop.code !== 200) {
-			return { status: 'error', code: prop.code, data: prop.data };
+		if (prop.status !== 200) {
+			return { status: prop.status, data: prop.data };
 		}
 
 		if (prop.data.ownerId != ownerId) {
-			return { status: 'error', code: 401, data: ' Not Authorized' };
+			return { status: 401, data: { error: 'Not Authorized' } };
 		}
 
 		const property = prop.data;
@@ -192,9 +192,9 @@ class PropertyModel {
 			}
 
 			data.properties.splice(index, 1, property);
-			return { status: 'success', code: 201, data: data.properties[index] };
+			return { status: 201, data: data.properties[index] };
 		}
-		return { status: 'error', code: 404, data: { message: ' Property not found' } };
+		return { status: 404, data: { error: 'Property not found' } };
 	}
 }
 

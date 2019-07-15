@@ -38,7 +38,7 @@ describe('Property creation', () => {
 					// eslint-disable-next-line prefer-destructuring
 					token = res.body.data.token;
 					res.should.have.status(201);
-					res.body.should.have.property('status');
+					res.body.should.have.property('status').eql(201);
 					res.body.should.have.property('data');
 					res.body.data.should.have.property('firstName').eql('Nyagatare');
 					res.body.data.should.have.property('lastName').eql('James');
@@ -64,7 +64,7 @@ describe('Property creation', () => {
 				.send(data)
 				.end((err, res) => {
 					res.should.have.status(201);
-					res.body.should.have.property('status').eql('success');
+					res.body.should.have.property('status').eql(201);
 					done();
 				});
 		});
@@ -84,7 +84,7 @@ describe('Property creation', () => {
 					.end((err, res) => {
 						propertyId = res.body.data.id;
 						res.should.have.status(201);
-						res.body.should.have.property('status').eql('success');
+						res.body.should.have.property('status').eql(201);
 						done();
 					});
 			});
@@ -103,7 +103,7 @@ describe('Property creation', () => {
 						res.should.have.status(201);
 						res.body.should.have.property('data');
 						res.body.data.should.have.property('price').eql(30000);
-						res.body.should.have.property('status').eql('success');
+						res.body.should.have.property('status').eql(201);
 						done();
 					});
 			});
@@ -117,7 +117,7 @@ describe('Property creation', () => {
 						res.body.should.have.property('data');
 						res.body.data.should.be.a('object');
 						res.body.data.should.have.property('status').eql('sold');
-						res.body.should.have.property('status').eql('success');
+						res.body.should.have.property('status').eql(201);
 						done();
 					});
 			});
@@ -145,7 +145,7 @@ describe('Property creation', () => {
 							res.body.should.have.property('data');
 							res.body.data.should.be.a('object');
 							res.body.data.should.have.property('status').eql('available');
-							res.body.should.have.property('status').eql('success');
+							res.body.should.have.property('status').eql(201);
 							done();
 						});
 				});
@@ -159,8 +159,8 @@ describe('Property creation', () => {
 						res.should.have.status(404);
 						res.body.should.have.property('data');
 						res.body.data.should.be.a('object');
-						res.body.data.should.have.property('message').eql('Property Not found');
-						res.body.should.have.property('status').eql('error');
+						res.body.data.should.have.property('error').eql('Property Not found');
+						res.body.should.have.property('status').eql(404);
 						done();
 					});
 			});
@@ -173,8 +173,8 @@ describe('Property creation', () => {
 						res.should.have.status(404);
 						res.body.should.have.property('data');
 						res.body.data.should.be.a('object');
-						res.body.data.should.have.property('message').eql('Property Not found');
-						res.body.should.have.property('status').eql('error');
+						res.body.data.should.have.property('error').eql('Property Not found');
+						res.body.should.have.property('status').eql(404);
 						done();
 					});
 			});
@@ -187,8 +187,8 @@ describe('Property creation', () => {
 						res.should.have.status(404);
 						res.body.should.have.property('data');
 						res.body.data.should.be.a('object');
-						res.body.data.should.have.property('message').eql('Property Not found');
-						res.body.should.have.property('status').eql('error');
+						res.body.data.should.have.property('error').eql('Property Not found');
+						res.body.should.have.property('status').eql(404);
 						done();
 					});
 			});
