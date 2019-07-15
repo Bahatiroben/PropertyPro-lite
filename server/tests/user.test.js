@@ -10,7 +10,7 @@ describe('Signup Test', () => {
 	it('it should create a user account', (done) => {
 		const data = {
 			firstName: 'Nyagatare',
-			lastName: 'James',
+			lastName: 'Jameson',
 			email: 'nyagatare@gmail.com',
 			password: 'Aa!12345'
 		};
@@ -19,10 +19,8 @@ describe('Signup Test', () => {
 			.send(data)
 			.end((err, res) => {
 				res.should.have.status(201);
-				res.body.should.have.property('status');
+				res.body.should.have.property('status').eql(201);
 				res.body.should.have.property('data');
-				res.body.data.should.have.property('firstName').eql('Nyagatare');
-				res.body.data.should.have.property('lastName').eql('James');
 				res.body.data.should.have.property('email').eql('nyagatare@gmail.com');
 				res.body.data.should.not.have.property('password');
 				res.body.data.should.have.property('id');
@@ -44,8 +42,8 @@ describe('Signup Test', () => {
 				.end((err, res) => {
 					res.should.have.status(400);
 					res.body.should.have.property('data');
-					res.body.should.have.property('status').eql('error');
-					res.body.data.should.have.property('message').eql('All fields are required');
+					res.body.should.have.property('status').eql(400);
+					res.body.data.should.have.property('error').eql('All fields are required');
 					done();
 				});
 		});
@@ -62,9 +60,9 @@ describe('Signup Test', () => {
 				.send(data)
 				.end((err, res) => {
 					res.should.have.status(400);
-					res.body.should.have.property('status').eql('error');
+					res.body.should.have.property('status').eql(400);
 					res.body.should.have.property('data');
-					res.body.data.should.have.property('message').eql('The password must contain an uppercase, lowercase, number, special character and at least 8 characters long');
+					res.body.data.should.have.property('error').eql('The password must contain an uppercase, lowercase, number, special character and at least 8 characters long');
 					done();
 				});
 		});
@@ -91,14 +89,18 @@ describe('User sign up ', () => {
 
 	it('it should not sign up an already existing a user', (done) => {
 		const data = {
-			email: 'bahati@prolite.com',
-			password: 'Aa!12345'
+			password: 'Aa!12345',
+			firstName: 'robben',
+			lastName: 'bahati',
+			email: 'bahati@prolite.com'
 		};
 		chai.request(app)
 			.post('/api/v1/auth/signup')
 			.send(data)
 			.end((err, res) => {
-				res.body.should.have.property('status').eql('error');
+				res.body.should.have.property('status').eql(403);
+				res.body.should.have.property('data');
+				res.body.data.should.have.property('error').eql('User already exist')
 			});
 		done();
 	});
@@ -131,7 +133,7 @@ describe('User sign up ', () => {
 				.send(data)
 				.end((err, res) => {
 					res.should.have.status(200);
-					res.body.should.have.property('status').eql('success');
+					res.body.should.have.property('status').eql(200);
 					res.body.should.have.property('data');
 					res.body.data.should.have.property('token');
 					res.body.data.should.have.property('id');
@@ -150,15 +152,15 @@ describe('User sign up ', () => {
 				.send(data)
 				.end((err, res) => {
 					res.should.have.status(400);
-					res.body.should.have.property('status').eql('error');
+					res.body.should.have.property('status').eql(400);
 					res.body.should.have.property('data');
-					res.body.data.should.have.property('message').eql('All fields are required');
+					res.body.data.should.have.property('error').eql('All fields are required');
 					done();
 				});
 		});
 		it('it should not login user without password', (done) => {
 			const data = {
-				email: 'bahati',
+				email: 'bahatiroben@gmail.com',
 
 			};
 			chai.request(app)
@@ -166,9 +168,9 @@ describe('User sign up ', () => {
 				.send(data)
 				.end((err, res) => {
 					res.should.have.status(400);
-					res.body.should.have.property('status').eql('error');
+					res.body.should.have.property('status').eql(400);
 					res.body.should.have.property('data');
-					res.body.data.should.have.property('message').eql('All fields are required');
+					res.body.data.should.have.property('error').eql('All fields are required');
 					done();
 				});
 		});
@@ -184,9 +186,9 @@ describe('User sign up ', () => {
 				.send(data)
 				.end((err, res) => {
 					res.should.have.status(401);
-					res.body.should.have.property('status').eql('error');
+					res.body.should.have.property('status').eql(401);
 					res.body.should.have.property('data');
-					res.body.data.should.have.property('message').eql('The password is incorrect');
+					res.body.data.should.have.property('error').eql('The password is incorrect');
 					done();
 				});
 		});
@@ -203,9 +205,9 @@ describe('User sign up ', () => {
 				.send(data)
 				.end((err, res) => {
 					res.should.have.status(404);
-					res.body.should.have.property('status').eql('error');
+					res.body.should.have.property('status').eql(404);
 					res.body.should.have.property('data');
-					res.body.data.should.have.property('message').eql('User Not found');
+					res.body.data.should.have.property('error').eql('User Not found');
 					done();
 				});
 		});

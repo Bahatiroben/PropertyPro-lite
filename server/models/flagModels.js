@@ -11,16 +11,19 @@ class FlagModel {
 		const newFlag = { ...details };
 		newFlag.created_on = moment.now();
 		const result = PropertyModel.findOne(id);
-		if (result.code === 404) {
-			return { status: 'error', code: 404, data: 'Property not found' };
+		if (result.status === 404) {
+			return { status: 404, data: { error: 'Property not found' } };
 		}
 		const index = data.properties.indexOf(result.data);
 
-		newFlag.id = uuid.v4;
+		if (data.properties[index].flags.length === 0) {
+			newFlag.id = 1;
+		} else {
+			newFlag.id = data.properties[index].flags[data.properties[index].flags.length - 1].id + 1;
+		}
 		data.properties[index].flags.push(newFlag);
 		return {
-			status: 'success',
-			code: 201,
+			status: 201,
 			data: {
 				message: 'flagged successfully'
 			}
