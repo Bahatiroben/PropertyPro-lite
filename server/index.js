@@ -15,9 +15,9 @@ app.use('/api/v1/property', propertyRoute);
 app.use('/api/v1/auth', userRoute);
 
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+	const err = new Error('Not Found');
+	err.status = 404;
+	next();
 });
 app.listen(PORT);
 module.exports = app;

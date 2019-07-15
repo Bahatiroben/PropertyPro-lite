@@ -96,7 +96,7 @@ class PropertyModel {
 
 		const owner = data.users.find(user => user.id == ownerId);
 		if (!owner.isAdmin) {
-			return { status: 'error', code: 401, data: { message: ' not Authorized ' } };
+			return { status: 'error', code: 401, data: { message: 'not Authorized' } };
 		}
 		// find if the property exist
 		const prop = this.findOne(id);
@@ -104,7 +104,7 @@ class PropertyModel {
 			return { status: 'error', code: prop.code, data: prop.data };
 		}
 
-		if (prop.data.ownerId != id) {
+		if (prop.data.ownerId != ownerId) {
 			return { status: 'error', code: 403, data: 'Forbiden' };
 		}
 
@@ -121,13 +121,14 @@ class PropertyModel {
 		// eslint-disable-next-line eqeqeq
 		const owner = data.users.find(user => user.id == ownerId);
 		if (!owner.isAdmin) {
-			return { status: 'error', code: 401, data: { message: ' Not Authorized ' } };
+			return { status: 'error', code: 401, data: { message: 'Not Authorized' } };
 		}
 		// find if the property exist
 
 		const { id } = req.params;
 		const details = req.body;
 		let prop = this.findOne(id);
+		let index;
 
 		if (prop.code !== 200) {
 			return { status: 'error', code: prop.code, data: prop.data };
@@ -137,9 +138,9 @@ class PropertyModel {
 			return { status: 'error', code: 404, data: 'Property not found' };
 		}
 
-		const property = { ...prop.data };
+		const property = prop.data;
 		if (property) {
-			const index = data.properties.indexOf(property);
+			 index = data.properties.indexOf(property);
 			for (let prop in details) {
 				for (let sameprop in property) {
 					if (prop === sameprop) {
@@ -161,11 +162,8 @@ class PropertyModel {
 				return { status: 'error', code: 400, data: { message: error.details[0].message } };
 			}
 
-			return {
-				status: 'success',
-				code: 200,
-				data: data.properties.splice(index, 1, property)
-			};
+			data.properties.splice(index, 1, property);
+			return { status: 'success', code: 201, data: data.properties[index] };
 		}
 		return { status: 'error', code: 404, data: ' Property not found' };
 	}
