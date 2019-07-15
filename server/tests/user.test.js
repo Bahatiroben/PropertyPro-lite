@@ -2,9 +2,6 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
 
-
-
-
 let propertyId;
 
 chai.use(chaiHttp);
@@ -73,8 +70,7 @@ describe('Signup Test', () => {
 		});
 	});
 });
-let token;
-let ownerId;
+
 // no signup if already exist
 describe('User sign up ', () => {
 	beforeEach('Create a user', (done) => {
@@ -87,13 +83,11 @@ describe('User sign up ', () => {
 		chai.request(app)
 			.post('/api/v1/auth/signup')
 			.send(data)
-			.end((error,res) => {
+			.end((error, res) => {
 				if (error) done(error);
 				done();
 			});
 	});
-
-
 
 	it('it should not sign up an already existing a user', (done) => {
 		const data = {
@@ -105,7 +99,6 @@ describe('User sign up ', () => {
 			.send(data)
 			.end((err, res) => {
 				res.body.should.have.property('status').eql('error');
-
 			});
 		done();
 	});
@@ -166,7 +159,7 @@ describe('User sign up ', () => {
 		it('it should not login user without password', (done) => {
 			const data = {
 				email: 'bahati',
-				
+
 			};
 			chai.request(app)
 				.post('/api/v1/auth/signin')
@@ -218,6 +211,3 @@ describe('User sign up ', () => {
 		});
 	});
 });
-
-// property tests
-

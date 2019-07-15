@@ -2,6 +2,7 @@
 Property Pro Lite is a platform where people can create and/or search properties for sale or rent
 ______________________________________________________________________________________________________-
 [![Coverage Status](https://coveralls.io/repos/github/Bahatiroben/PropertyPro-lite/badge.svg?branch=develop)](https://coveralls.io/github/Bahatiroben/PropertyPro-lite?branch=develop)
+[![Build Status](https://www.travis-ci.com/Bahatiroben/PropertyPro-lite.svg?branch=develop)](https://www.travis-ci.com/Bahatiroben/PropertyPro-lite)
 
 Property Pro is a platform that helps users find, rent and buy proerties eality
 

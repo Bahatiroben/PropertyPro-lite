@@ -76,19 +76,18 @@ describe('get all properties', () => {
                      done();
                 });
         });
-        
+
     });
 
 describe('Flag endpoint', () => {
     it('it should flag an existing property', (done) => {
         const data = {
-            id: 1,
             email: 'barakajean@proplite.com',
             reason: 'the prices are weird',
             description: 'the prices are way different from the quality offered'
         };
         chai.request(app)
-            .patch(`/api/v1/property/flag/`)
+            .post(`/api/v1/property/flag/1`)
             .send(data)
             .end((err, res) => {
                 res.should.have.status(201);
@@ -102,13 +101,12 @@ describe('Flag endpoint', () => {
 
     it('it should not flag a non existing property', (done) => {
         const data = {
-            id: 5,
             email: 'barakajean@proplite.com',
             reason: 'the prices are weird',
             description: 'the prices are way different from the quality offered'
         };
         chai.request(app)
-            .patch(`/api/v1/property/flag/`)
+            .post(`/api/v1/property/flag/98`)
             .send(data)
             .end((err, res) => {
                 res.should.have.status(404);
