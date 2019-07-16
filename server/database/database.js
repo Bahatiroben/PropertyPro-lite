@@ -6,58 +6,51 @@ dotenv.config();
 
 class Database {
   constructor() {
-    this.pool = new Pool({
-      user: process.env.PGUSER,
-      host: process.env.PGHOST,
-      database: process.env.PGDATABASE,
-      password: process.env.PGPASSWORD,
-      port: process.env.PGPORT
-    });
+    this.pool = new Pool({ connectionString: process.env.DATABASE_URL });
     this.connect = async () => this.pool.connect();
     this.initialize();
-  }
-
-   createUserTable =
-    `
-    CREATE TABLE IF NOT EXISTS userTable (
-      id serial PRIMARY KEY,
-      firstName VARCHAR(128) NOT NULL,
-      lastName VARCHAR(128) NOT NULL,
-      email VARCHAR(128) NOT NULL,
-      password VARCHAR(128) NOT NULL,
-      phoneNumber VARCHAR(20) NOT NULL
-      isAdmin BOOLEAN
-      createdDate DATE
+     this.users = `CREATE TABLE IF NOT EXISTS userTable (
+      id serial PRIMARY KEY UNIQUE,
+      firstName TEXT NOT NULL,
+      lastName TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL,
+      phoneNumber TEXT NOT NULL,
+      isAdmin boolean DEFAULT false,
+      createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`;
 
-  createPropertyTable =
-    `
-    CREATE TABLE IF NOT EXISTS propertyTable (
+    this.properties = `CREATE TABLE IF NOT EXISTS propertyTable (
       id serial PRIMARY KEY,
-      title VARCHAR(50) NOT NULL,
-      status VARCHAR(50) NOT NULL,
-      type VARCHAR(50) NOT NULL,
-      createdOn DATE,
-      price DECIMAL,
-      state VARCHAR(128),
-      imageUrl VARCHAR(100),
-      address VARCHAR(80),
-      description VARCHAR(128),
-      ownerEmail REFERENCES userTable (email) ON DELETE CASCADE,
-      ownerPhoneNumber REFERENCES userTable (phoneNumber) ON DELETE CASCADE,
-      ownerId serial REFERENCES userTable (id) ON DELETE CASCADE
+      title TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'available',
+      type TEXT NOT NULL,
+      price DECIMAL NOT NULL,
+      address TEXT,
+      state TEXT,
+      imageUrl TEXT,
+      description TEXT,
+      ownerEmail TEXT REFERENCES userTable (email) ON DELETE CASCADE,
+      ownerPhoneNumber TEXT REFERENCES userTable (phoneNumber) ON DELETE CASCADE,
+      ownerId INTEGER REFERENCES userTable (id) ON DELETE CASCADE,
+      createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`;
 
-    signUpQery =`
-      INSERT INTO userTable
-      VALUES($1, $2, $3, $4, $5, $6, $7)
-      `;
+    this.flags = `CREATE TABLE IF NOT EXISTS flags(
+        id SERIAL PRIMARY KEY UNIQUE,
+        propertyId INTEGER NOT NULL REFERENCES properties(id) ON DELETE CASCADE,
+        email TEXT NOT NULL REFERENCES users(email) ON DELETE CASCADE,
+        address TEXT,
+        description VARCHAR(50),
+        createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )`
+  };
+
 
 
     // CONNECTING TO THE DATABASE
     async execute(sql, data = []) {
       const connection = await this.connect();
-
       try {
         if (data.length) return await connection.query(sql, data);
         return await connection.query(sql);
@@ -67,37 +60,13 @@ class Database {
         connection.release();
       }
     }
-    //   inserting the user into the database
-    async createUser() {
-      try{
-      const { rows } = await this.execute('SELECT * FROM userTable WHERE email = $1', [email]);
-      if (!rows[0]) {
-        this.execute(this.signUpQuery, [
-          firstName,
-          lastName,
-          email,
-          helper.hashThePassword('admin'),
-          phoneNumber,
-          isAdmin,
-          new Date()
-        ]);
-        return 'User created successfully';
-      } else {
-        return 'User already exist';
-      }
-    } catch (error){
-      return error;
-    }
 
-    }
-
-    // inserting a property into the database
 
     async initialize() {
-      await this.execute(this.createUserTable);
-      await this.execute(this.createParcelTable);
-      this.createAdmin();
+      await this.execute(this.users);
+      await this.execute(this.properties);
+      await this.execute(this.flags);
     }
 }
 
-export default new Database();
+export default Database;
