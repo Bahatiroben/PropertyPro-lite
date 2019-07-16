@@ -22,7 +22,7 @@ class PropertyModel {
 
 		if (error) {
 			if (error.details[0].type === 'any.required') {
-				return { status: 400, data: { error: 'All fields are required' } };
+				return { status: 400, data: { error: error.details[0].message } };
 			}
 			return { status: 400, data: { error: error.details[0].message } };
 		}
