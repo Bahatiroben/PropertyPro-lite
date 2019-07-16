@@ -26,7 +26,7 @@ class Database {
       email VARCHAR(128) NOT NULL,
       password VARCHAR(128) NOT NULL,
       phoneNumber VARCHAR(20) NOT NULL
-      isAdmin BOOL
+      isAdmin BOOLEAN
       createdDate DATE
     )`;
 
@@ -48,10 +48,11 @@ class Database {
       ownerId serial REFERENCES userTable (id) ON DELETE CASCADE
     )`;
 
-    signUp =`
-      INSERT INTO user_table
+    signUpQery =`
+      INSERT INTO userTable
       VALUES($1, $2, $3, $4, $5, $6, $7)
       `;
+    
 
     // CONNECTING TO THE DATABASE
     async execute(sql, data = []) {
@@ -66,22 +67,32 @@ class Database {
         connection.release();
       }
     }
-
-    async createAdmin() {
-      const { rows } = await this.execute('SELECT * FROM user_table WHERE role = $1', ['Admin']);
+    // inserting the user into the database
+    async createUser() {
+      try{
+      const { rows } = await this.execute('SELECT * FROM userTable WHERE email = $1', [email]);
       if (!rows[0]) {
-        this.execute(this.createAdminUser, [
-          uuid.v4(),
-          'Admin',
-          'Sendit',
-          'admin@sendit.com',
+        this.execute(this.signUpQuery, [
+          firstName,
+          lastName,
+          email,
           helper.hashThePassword('admin'),
-          'Admin',
-          'Admin',
+          phoneNumber,
+          isAdmin,
           new Date()
         ]);
+        return 'User created successfully';
+      } else {
+        return 'User already exist';
       }
+    } catch (error){
+      return error;
     }
+
+    }
+
+    // inserting a property into the database
+
     async initialize() {
       await this.execute(this.createUserTable);
       await this.execute(this.createParcelTable);

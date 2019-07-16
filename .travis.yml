@@ -14,10 +14,10 @@ env:
     - PG_URL=postgresql://admin:bahati@localhost/proplite
     - PG_USER=admin
     - PG_DATABASE=proplite
-    - PG_PASSWORD=1234567890
+    - PG_PASSWORD=bahati
     - PG_PORT=5432
 before_script:
-  - psql -c 'create database proplite;' -U postgres
+  - psql -c "create database proplitetest;" -U postgress
   - psql -c "CREATE USER admin WITH PASSWORD 'bahati';" -U postgres
 script:
   npm test
