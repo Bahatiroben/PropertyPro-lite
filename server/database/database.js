@@ -52,7 +52,7 @@ class Database {
       INSERT INTO userTable
       VALUES($1, $2, $3, $4, $5, $6, $7)
       `;
-    
+
 
     // CONNECTING TO THE DATABASE
     async execute(sql, data = []) {
@@ -67,7 +67,7 @@ class Database {
         connection.release();
       }
     }
-    // inserting the user into the database
+    //   inserting the user into the database
     async createUser() {
       try{
       const { rows } = await this.execute('SELECT * FROM userTable WHERE email = $1', [email]);
