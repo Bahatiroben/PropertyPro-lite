@@ -14,10 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1/property', propertyRoute);
 app.use('/api/v1/auth', userRoute);
-app.use((req, res, next) => {
-	const err = new Error('Not Found');
-	err.status = 404;
-	next();
+app.get('/', (req, res)=>{
+    res.status(200).json('you are welcome to propertypro-lite');
 });
 app.listen(PORT);
 module.exports = app;
