@@ -21,7 +21,8 @@ class UserModel {
 			if (error.details[0].type === 'any.required') {
 				return { status: 400, data: { error: 'All fields are required' } };
 			} if (error.details[0].type === 'string.regex.base') {
-				return { status: 400, data: { error: 'The password must contain an uppercase, lowercase, number, special character and at least 8 characters long' } };
+				const err = error.details[0].message.split("with")[0] + ' is not valid'
+				return { status: 400, data: err };
 			}
 			return { status: 400, data: { error: error.details[0].message } };
 		}
