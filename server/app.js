@@ -32,8 +32,6 @@ const createTables = async () => {
       state TEXT,
       imageUrl TEXT,
       description TEXT,
-      ownerEmail TEXT NOT NULL,
-      ownerPhoneNumber TEXT NOT NULL,
       ownerId INTEGER REFERENCES users (id) ON DELETE CASCADE,
       createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`;
