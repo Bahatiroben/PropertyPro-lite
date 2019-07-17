@@ -74,7 +74,7 @@ class UserModel {
 			return { status: 500, data: { error: 'internal server error' } };
 		}
 		const { id, firstName, lastName } = output;
-		const token = helper.getToken({ id, email, firstName, lastName });
+		const token = helper.getToken({ id, firstName, lastName, email });
 		return { status: 200, data: { token, ...output } };
 	}
 }
