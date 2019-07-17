@@ -26,10 +26,10 @@ class UserModel {
 		}
 
 		const hashedPassword = helper.hashThePassword(password);
-		const newUser = [ ,firstName, lastName, email, phoneNumber, hashedPassword, phoneNumber, , ];
+		const newUser = [firstName, lastName, email, hashedPassword, phoneNumber];
 
 		const createUser = `INSERT INTO users
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *`;
 		try {
 			const { rows } = await Database.execute(createUser, newUser);
