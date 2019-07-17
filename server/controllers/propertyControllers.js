@@ -20,5 +20,22 @@ const propertyController = {
 		}
 		const { status, data } = PropertyModel.create(req);
 		res.status(status).json({ status, data });
-	}
-}
+	},
+
+	findOne(req, res) {
+		const { status, data } = PropertyModel.findOne(req.params.id);
+		res.status(status).json({ status, data });
+	},
+
+	search(req, res) {
+		const { query } = req;
+
+		if (Object.keys(query).length > 0) {
+			const { status, data } = PropertyModel.search(query);
+			res.status(status).json({ status, data });
+		} else {
+			const { status, data } = PropertyModel.findAll();
+			res.status(status).json({ status, data });
+		}
+	},
+};
