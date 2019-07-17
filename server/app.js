@@ -10,8 +10,8 @@ const pool = new Pool({ connectionString: 'postgres://postgres:bahati@localhost/
 
 
 const createTables = async () => {
-  console.log('pool');
-     const users = `CREATE TABLE IF NOT EXISTS users (
+	console.log('pool');
+	const users = `CREATE TABLE IF NOT EXISTS users (
       id serial PRIMARY KEY UNIQUE,
       firstName TEXT NOT NULL,
       lastName TEXT NOT NULL,
@@ -22,7 +22,7 @@ const createTables = async () => {
       createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`;
 
-    const properties = `CREATE TABLE IF NOT EXISTS properties (
+	const properties = `CREATE TABLE IF NOT EXISTS properties (
       id serial PRIMARY KEY,
       title TEXT NOT NULL,
       status TEXT NOT NULL DEFAULT 'available',
@@ -38,23 +38,21 @@ const createTables = async () => {
       createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`;
 
-    const flags = `CREATE TABLE IF NOT EXISTS flags (
+	const flags = `CREATE TABLE IF NOT EXISTS flags (
         id SERIAL PRIMARY KEY UNIQUE,
         propertyId INTEGER NOT NULL REFERENCES properties (id) ON DELETE CASCADE,
         email TEXT NOT NULL,
-        address TEXT,
-        description VARCHAR(50),
+        reason TEXT),
+        description TEXT,
         createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`
-    await pool.query(users);
-    console.log('users created');
-    await pool.query(properties);
-    console.log('properties created');
-    await pool.query(flags);
-    console.log('flags created');
+    )`;
+	await pool.query(users);
+	console.log('users created');
+	await pool.query(properties);
+	console.log('properties created');
+	await pool.query(flags);
+	console.log('flags created');
 };
-
-
 
 
 createTables();
@@ -68,9 +66,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res)=>{
-    res.status(200).json('you are welcome to propertypro-lite');
+	res.status(200).json('you are welcome to propertypro-lite');
 });
 app.listen(PORT, () => {
-    console.log('listening on port 3000 ...');
+	console.log('listening on port 3000 ...');
 });
 module.exports = app;
