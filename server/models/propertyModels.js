@@ -5,16 +5,17 @@ import Database from '../database/database';
 
 class PropertyModel {
 	async create(req) {
-		const { userId } = req.body;
+		const { userId } = req.body.payload;
+		console.log(userId);
 		const {
 			title, type, price, address, state, imageUrl, description
-		} = { ...req };
+		} = req;
 
-		const createAd = `INSERT INTO users
+		const createAd = `INSERT INTO properties
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING *`;
 		try {
-			const { rows } = await Database.execute(createAd,
+			const rows = await Database.execute(createAd,
 				[title, type, price, address, state, imageUrl, description, userId]);
 			const makeAdmin = `UPDATE users SET
             isAdmin = $1
@@ -22,7 +23,7 @@ class PropertyModel {
 			await Database.execute(makeAdmin, [true, userId]);
 			return { status: 201, data: rows[0] };
 		} catch (error) {
-			return { status: 500, data: { error } };
+			return { status: 500, data: { error: 'something went wrong' } };
 		}
 	}
 

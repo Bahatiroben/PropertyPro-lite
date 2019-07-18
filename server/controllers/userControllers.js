@@ -18,17 +18,17 @@ const userController = {
 		}, schema.user);
 		if (error) {
 			if (error.details[0].type === 'any.required') {
-				res.status.json({ status: 400, data: { error: 'All fields are required' } });
+				return res.status.json({ status: 400, data: { error: 'All fields are required' } });
 			} if (error.details[0].type === 'string.regex.base') {
 				// eslint-disable-next-line prefer-template
 				const err = error.details[0].message.split('with')[0] + ' is not valid';
-				res.status(400).json({ status: 400, data: error });
+				return res.status(400).json({ status: 400, data: error });
 			}
-			res.status(400).json({ status: 400, data: { error: error.details[0].message } });
+			return res.status(400).json({ status: 400, data: { error: error.details[0].message } });
 		}
 		const { status, data } = await UserModel.signup(req.body);
 
-		res.status(status).json({ status, data });
+		return res.status(status).json({ status, data });
 	},
 
 	async login(req, res) {
@@ -36,10 +36,10 @@ const userController = {
 			email, password
 		} = req.body;
 		if (!email || !password) {
-			res.status(400).json({ status: 400, data: { error: 'All fields are required' } });
+			return res.status(400).json({ status: 400, data: { error: 'All fields are required' } });
 		}
 		const { status, data } = await UserModel.login(req.body);
-		res.status(status).json({ status, data });
+		return res.status(status).json({ status, data });
 	}
 };
 

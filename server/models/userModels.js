@@ -18,7 +18,7 @@ class UserModel {
 		try {
 			const rows = await Database.execute(getUser, [email]);
 			if (rows[0]) {
-				return { status: 403, data: { error: 'User already exist' } };
+				return { status: 209, data: { error: 'User already exist' } };
 			}
 		} catch (error) {
 			return { status: 500, data: { error: 'intenal error' } };
@@ -37,11 +37,12 @@ class UserModel {
 		}
 
 		const id = output.id;
+		const { firstname, lastname, phonenumber, isadmin, createdon } = output;
 		const payload = {
-			id, firstName, lastName, email
+			id, firstname, lastname, email
 		};
 		const token = helper.getToken(payload);
-		const { firstname, lastname, phonenumber, isadmin, createdon } = output;
+		
 		return { status: 201, data: { token, firstname, lastname, phonenumber, isadmin, createdon } };
 	}
 
@@ -68,8 +69,8 @@ class UserModel {
 		}
 		
 		const { id, firstname, lastname, phonenumber, isadmin, createdon } = output;
-		const token = helper.getToken({ id, firstName, lastName, email });
-		return { status: 200, data: { token, id, firstname, lastname, email, password, phonenumber, isadmin,createdon } };
+		const token = helper.getToken({ id, firstname, lastname, email });
+		return { status: 200, data: { token, id, firstname, lastname, email, phonenumber, isadmin, createdon } };
 	}
 }
 export default new UserModel();
