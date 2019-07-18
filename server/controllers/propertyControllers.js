@@ -38,4 +38,19 @@ const propertyController = {
 			res.status(status).json({ status, data });
 		}
 	},
+
+	delete(req, res) {
+		const { status, data } = PropertyModel.delete(req);
+		res.status(status).json({ status, data });
+	},
+
+	update(req, res) {
+		const { status, data } = PropertyModel.update(req);
+		res.status(status).json({ status, data });
+	},
+
+	sold(req, res) {
+		const { status, data } = PropertyModel.sold(req);
+		res.status(status).json({ status, data });
+	}
 };
