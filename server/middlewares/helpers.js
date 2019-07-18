@@ -33,9 +33,9 @@ const Helper = {
 		}
 		const token = bearerHeader.split(' ')[1];
 		try {
-			const { id, email } = await jwt.verify(token, process.env.SECRETKEY);
+			const { id, email } = await jwt.verify(token, process.env.SECRET_KEY);
 			const getUser = `SELECT * FROM users WHERE id = $1`;
-			const { rows } = await Database.execute(getUser, [id]);
+			const rows = await Database.execute(getUser, [id]);
 			if (!rows[0]) {
 				return res.status(401).send({ message: 'Invalid Token' });
 			}

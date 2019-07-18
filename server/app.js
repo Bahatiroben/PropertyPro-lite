@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/v1/property', propertyRoute);
 app.use('/api/v1/auth', userRoute);
 
-app.get('/', (req, res)=>{
+app.get('/', (req, res) => {
 	res.status(200).json('you are welcome to propertypro-lite');
 });
 app.listen(PORT, () => {
