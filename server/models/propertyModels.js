@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable prefer-const */
 /* eslint-disable quotes */
 import Database from '../database/database';
@@ -36,13 +37,13 @@ class PropertyModel {
 		return { status: 200, data: rows[0] };
 	}
 
-	findAll() {
+	async findAll() {
 		try {
 			const getProperty = `SELECT * FROM properties`;
-			const { rows } = Database.execute(getProperty);
-			return { status: 200, data: rows };
+			const { rows } = await Database.execute(getProperty);
+			return { status: 200, data: rows[0] };
 		} catch (error) {
-			return { status: 200, data: { error } };
+			return { status: 500, data: { error } };
 		}
 	}
 
@@ -173,3 +174,5 @@ class PropertyModel {
 		}
 	}
 }
+
+export default new PropertyModel();

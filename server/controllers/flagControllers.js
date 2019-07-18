@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const flagController = {
-	flag(req, res) {
+	async flag(req, res) {
 		const {
 			email, reason, description
 		} = req.body;
@@ -28,8 +28,8 @@ const flagController = {
 			}
 			return { status: 400, data: { error: error.details[0].message } };
 		}
-        
-		const { status, data } = FlagModel.flag(req.params.id, req.body);
+
+		const { status, data } = await FlagModel.flag(req.params.id, req.body);
 		res.status(status).json({ status, data });
 	}
 };
