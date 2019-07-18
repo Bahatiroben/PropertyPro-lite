@@ -2,7 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
-// import { createTables } from './database/tables';
+import propertyRoute from './routes/propertyRoutes';
+import userRoute from './routes/userRoutes';
+//import { createTables } from './database/tables';
 
 dotenv.config();
 
