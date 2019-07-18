@@ -3,7 +3,7 @@ import PropertyModel from '../models/propertyModels';
 import schema from '../middlewares/validations';
 
 const propertyController = {
-	create(req, res) {
+	async create(req, res) {
 		const details = req.body;
 		const {
 			title, imageUrl, price, address
@@ -18,39 +18,40 @@ const propertyController = {
 			}
 			return { status: 400, error: error.details[0].message };
 		}
-		const { status, data } = PropertyModel.create(req);
+		const { status, data } = await PropertyModel.create(req);
 		res.status(status).json({ status, data });
 	},
 
-	findOne(req, res) {
-		const { status, data } = PropertyModel.findOne(req.params.id);
+	async findOne(req, res) {
+		const { status, data } = await PropertyModel.findOne(req.params.id);
 		res.status(status).json({ status, data });
 	},
 
-	search(req, res) {
+	async search(req, res) {
 		const { query } = req;
 
 		if (Object.keys(query).length > 0) {
-			const { status, data } = PropertyModel.search(query);
+			const { status, data } = await PropertyModel.search(query);
 			res.status(status).json({ status, data });
 		} else {
-			const { status, data } = PropertyModel.findAll();
+			const { status, data } = await PropertyModel.findAll();
 			res.status(status).json({ status, data });
 		}
 	},
 
-	delete(req, res) {
-		const { status, data } = PropertyModel.delete(req);
+	async delete(req, res) {
+		const { status, data } = await PropertyModel.delete(req);
 		res.status(status).json({ status, data });
 	},
 
-	update(req, res) {
-		const { status, data } = PropertyModel.update(req);
+	async update(req, res) {
+		const { status, data } = await PropertyModel.update(req);
 		res.status(status).json({ status, data });
 	},
 
-	sold(req, res) {
-		const { status, data } = PropertyModel.sold(req);
+	async sold(req, res) {
+		const { status, data } = await PropertyModel.sold(req);
 		res.status(status).json({ status, data });
 	}
 };
+export default propertyController;

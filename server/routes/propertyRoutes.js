@@ -1,7 +1,7 @@
 import express from 'express';
 import property from '../controllers/propertyControllers';
 import flag from '../controllers/flagControllers';
-import helper from '../helpers/helper';
+import helper from '../middlewares/helpers';
 
 // properties toutes
 const router = express.Router();
@@ -13,4 +13,4 @@ router.post('/flag/:id', flag.flag);
 router.patch('/:id', helper.verifyToken, property.update);
 router.delete('/:id', helper.verifyToken, property.delete);
 router.patch('/:id/sold', helper.verifyToken, property.sold);
-module.exports = router;
+export default router;
