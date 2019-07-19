@@ -38,8 +38,8 @@ class tables {
         id SERIAL PRIMARY KEY UNIQUE,
         propertyId INTEGER NOT NULL REFERENCES properties (id) ON DELETE CASCADE,
         email TEXT NOT NULL,
-        address TEXT,
-        description VARCHAR(50),
+        reason TEXT,
+        description TEXT,
         createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`;
      createTables = async () => {

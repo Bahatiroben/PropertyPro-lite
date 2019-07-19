@@ -10,11 +10,14 @@ class FlagModel {
 		if (result.status === 404) {
 			return { status: 404, data: { error: 'Property not found' } };
 		}
-		const createFlag = `INSERT INTO users
-        VALUES ($1, $2, $3, $4, $5, $6)
+		const createFlag = `INSERT INTO flags (propertyid, email, reason, description)
+        VALUES ($1, $2, $3, $4)
         RETURNING *`;
 		try {
-			const output = Database.execute(createFlag, [, id, email, reason, description, ]);
+			const output = await Database.execute(createFlag, [id, email, reason, description]);
+			if (!output[0]) {
+				return { status: 500, data: {error: 'something gone wrong'}}
+			}
 			return {
 				status: 201,
 				data: {

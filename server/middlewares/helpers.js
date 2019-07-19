@@ -37,12 +37,12 @@ const Helper = {
 			const getUser = `SELECT * FROM users WHERE id = $1`;
 			const rows = await Database.execute(getUser, [id]);
 			if (!rows[0]) {
-				return res.status(401).send({ message: 'Invalid Token' });
+				return res.status(401).json({ message: 'Invalid Token' });
 			}
-			req.payload.userId = id;
-			next();
+			// req.token = token;
+		req.payload = { id, email };
 		} catch (error) {
-			return res.status(500).send(error);
+			return res.status(500).json(error);
 		}
 		next();
 	}

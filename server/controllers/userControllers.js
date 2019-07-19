@@ -6,7 +6,6 @@ import schema from '../middlewares/validations';
 
 const userController = {
 	async signup(req, res) {
-		console.log('signup hit');
 		// joi validations
 		// eslint-disable-next-line prefer-const
 		const {

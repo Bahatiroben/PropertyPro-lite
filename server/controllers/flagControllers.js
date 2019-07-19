@@ -20,17 +20,17 @@ const flagController = {
 		}, schema.flag);
 		if (error) {
 			if (error.details[0].type === 'any.required') {
-				return { status: 400, data: { error: 'All fields are required' } };
+				return res.status(400).json({ status: 400, data: { error: 'All fields are required' } });
 			} if (error.details[0].type === 'string.regex.base') {
 				// eslint-disable-next-line prefer-template
 				const err = error.details[0].message.split('with')[0] + ' is not valid';
-				return { status: 400, data: err };
+				return res.status(400).json({ status: 400, data: err });
 			}
-			return { status: 400, data: { error: error.details[0].message } };
+			return res.status(400).json({ status: 400, data: { error: error.details[0].message } });
 		}
 
 		const { status, data } = await FlagModel.flag(req.params.id, req.body);
-		res.status(status).json({ status, data });
+		return res.status(status).json({ status, data });
 	}
 };
 
