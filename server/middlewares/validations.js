@@ -5,7 +5,8 @@ const schema = {
 		title: joi.string().min(5).max(50).trim().required(),
 		imageUrl: joi.string().min(10).trim().required(),
 		price: joi.number().positive().required(),
-		address: joi.string().trim().required()
+		address: joi.string().trim().required(),
+		type: joi.string().min(3).max(10)
 	}),
 	user: joi.object().keys({
 		firstName: joi.string().min(2).trim().regex(/^\S[A-Za-z]{1,}$/).required(),
