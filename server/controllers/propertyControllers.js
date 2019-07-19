@@ -11,12 +11,11 @@ const propertyController = {
 		const { error } = joi.validate({
 			title, imageUrl, price, address
 		}, schema.property);
-
 		if (error) {
 			if (error.details[0].type === 'any.required') {
-				return { status: 400, error: error.details[0].message };
+				return res.status(400).json({error: error.details[0].message });
 			}
-			return { status: 400, error: error.details[0].message };
+			return res.status(400).json({error: error.details[0].message });
 		}
 		const { status, data } = await PropertyModel.create(req);
 		res.status(status).json({ status, data });

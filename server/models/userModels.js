@@ -14,11 +14,10 @@ class UserModel {
 		let output;
 		// check the existence
 		const getUser = `SELECT * FROM users WHERE email = $1`;
-		console.log('reaching');
 		try {
 			const rows = await Database.execute(getUser, [email]);
 			if (rows[0]) {
-				return { status: 209, data: { error: 'User already exist' } };
+				return { status: 409, data: { error: 'User already exist' } };
 			}
 		} catch (error) {
 			return { status: 500, data: { error: 'intenal error' } };
@@ -42,7 +41,7 @@ class UserModel {
 			id, firstname, lastname, email
 		};
 		const token = helper.getToken(payload);
-		
+
 		return { status: 201, data: { token, firstname, lastname, phonenumber, isadmin, createdon } };
 	}
 
