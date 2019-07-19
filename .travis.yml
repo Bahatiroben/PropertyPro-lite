@@ -1,0 +1,28 @@
+services:
+  - postgresql
+addons:
+  postgresql: "10"
+env:
+  global:
+    - SECRET_KEY=BAHATIROBBEN
+    - PORT=3000
+    - DATABASE_URL=postgres://postgres:bahati@localhost/proplite
+ 
+language: node_js
+node_js:
+  - 10.15.3
+branches:
+  only:
+    - develop
+install:
+  - npm install
+cache:
+  directories:
+    - node_modules
+before_script:
+  - psql -c 'create database proplite;' -U postgres
+
+script:
+  - npm test
+after_success:
+  - npm run coverage

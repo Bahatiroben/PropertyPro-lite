@@ -17,7 +17,7 @@ const userController = {
 		}, schema.user);
 		if (error) {
 			if (error.details[0].type === 'any.required') {
-				return res.status.json({ status: 400, data: { error: 'All fields are required' } });
+				return res.status(400).json({ status: 400, data: { error: 'All fields are required' } });
 			} if (error.details[0].type === 'string.regex.base') {
 				// eslint-disable-next-line prefer-template
 				const err = error.details[0].message.split('with')[0] + ' is not valid';
