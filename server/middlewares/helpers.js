@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import env from 'dotenv';
 import jwt from 'jsonwebtoken';
 import Database from '../database/database';
-
+const SECRET_KEY = 'BAHATIROBBEN';
 
 env.config();
 
@@ -22,7 +22,7 @@ const Helper = {
 	}) {
 		const token = jwt.sign({
 			id, email, firstName, lastName
-		}, process.env.SECRET_KEY);
+		}, SECRET_KEY);
 		return token;
 	},
 	// a middleware
@@ -33,7 +33,7 @@ const Helper = {
 		}
 		const token = bearerHeader.split(' ')[1];
 		try {
-			const { id, email } = await jwt.verify(token, process.env.SECRET_KEY);
+			const { id, email } = await jwt.verify(token, SECRET_KEY);
 			const getUser = `SELECT * FROM users WHERE id = $1`;
 			const rows = await Database.execute(getUser, [id]);
 			if (!rows[0]) {
