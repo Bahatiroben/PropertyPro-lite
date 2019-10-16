@@ -1,11 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import cors from 'cors';
 import './database/database';
 import propertyRoute from './routes/propertyRoutes';
 import userRoute from './routes/userRoutes';
-
+const cors = require('cors');
 
 dotenv.config();
 
@@ -14,7 +13,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 // middle wares
-
+const t = app.use(cors);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
