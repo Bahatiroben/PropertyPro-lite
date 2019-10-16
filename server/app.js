@@ -12,9 +12,10 @@ dotenv.config();
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 const app = express();
+
 // middle wares
+
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors);
 app.use(bodyParser.json());
 
 app.use('/api/v1/property', propertyRoute);
