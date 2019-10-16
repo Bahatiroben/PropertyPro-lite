@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 // middle wares
-const t = app.use(cors);
+const t = app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
