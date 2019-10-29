@@ -2,7 +2,6 @@
 /* eslint-disable prefer-const */
 /* eslint-disable quotes */
 import Database from '../database/database';
-import { timingSafeEqual } from 'crypto';
 
 class PropertyModel {
 	async create(req) {

@@ -1,9 +1,15 @@
 import joi from 'joi';
 import PropertyModel from '../models/propertyModels';
 import schema from '../middlewares/validations';
+import uploader from '../helpers/cloudinary';
 
 const propertyController = {
 	async create(req, res) {
+		if (req.files) {
+			const { imageUrl } = req.files;
+			const cloudFile = await uploader(imageUrl.tempFilePath);
+			req.body.imageUrl = cloudFile.url;
+		}
 		const details = req.body;
 		const {
 			title, imageUrl, price, address

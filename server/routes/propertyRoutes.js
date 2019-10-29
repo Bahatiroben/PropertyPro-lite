@@ -1,10 +1,16 @@
 import express from 'express';
+import fileupload from 'express-fileupload';
 import property from '../controllers/propertyControllers';
 import flag from '../controllers/flagControllers';
 import helper from '../middlewares/helpers';
 
 // properties toutes
 const router = express.Router();
+router.use(
+	fileupload({
+		useTempFiles: true
+	})
+);
 
 router.get('/', property.search);
 router.post('/', helper.verifyToken, property.create);

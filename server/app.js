@@ -4,9 +4,8 @@ import dotenv from 'dotenv';
 import './database/database';
 import propertyRoute from './routes/propertyRoutes';
 import userRoute from './routes/userRoutes';
-const cors = require('cors');
 
-dotenv.config();
+const cors = require('cors');
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
