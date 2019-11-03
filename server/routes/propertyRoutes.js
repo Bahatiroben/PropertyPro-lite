@@ -12,10 +12,10 @@ router.use(
 	})
 );
 
-router.get('/', property.search);
+router.get('/', helper.verifyToken, property.search);
 router.post('/', helper.verifyToken, property.create);
-router.get('/:id', property.findOne);
-router.post('/flag/:id', flag.flag);
+router.get('/:id', helper.verifyToken, property.findOne);
+router.post('/flag/:id', helper.verifyToken, flag.flag);
 router.patch('/:id', helper.verifyToken, property.update);
 router.delete('/:id', helper.verifyToken, property.delete);
 router.patch('/:id/sold', helper.verifyToken, property.sold);
